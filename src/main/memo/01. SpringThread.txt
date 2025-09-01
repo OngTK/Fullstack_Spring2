@@ -1,0 +1,105 @@
+# 20250901
+
+[ Thread ]
+프로그램(프로세스) 내에서 실행되는 작업의 단위·흐름
+    1) 하나의 자바프로세스에는 최소 1개의 스레드가 존재
+    2) 자바는 main() 함수 실행시 main 스레드 1개가 실행
+
+[ Multi-Thread ]
+    1) main thread 외 새로운 작업 스레드 실행
+    2) 병렬처리 시 주로 이용
+    = 동시에 여러 작업을 수행
+
+[ Spring-Thread ]
+    1) Spring Framework는 기본적으로 Multi-Thread 환경을 지원
+        vs Node.js : 단일 thread / 소규모에 적합
+    2) 사용처
+        (1) REST API
+            : 여러 사람이 서로 다른 URL 요청 시, 서로 다른 멀티스레드 지원
+        (2) JDBC
+        (3) 동기화 / 비동기화
+
+[ Spring 동기화 vs 비동기화 ]
+    1) 동기화
+        : 여러 스레드가 하나의 메소드를 점령·호출할 때, 요청 순서대로 처리하는 대기 상태
+        (1) 특징
+            - 순서 보장
+            - Spring thread는 동기화를 기본으로 함
+            - 메소드가 끝날 때까지 대기 상태
+        (2) 사용처
+            : 즉시 처리 후 결과를 반환
+    2) 비동기화
+        : 여러 스레드가 하나의 메소드를 점령·호출할 때,
+            요청 순서와 상관없이 처리 순서대로 응답하는 상태
+        (1) 특징
+            - 순서 보장 X
+            - 메소드 결과를 먼저 반환하고, 다른 Thread(background)가 처리
+        (2) 사용처
+            : 사용자가 기다릴 필요가 없는 상황
+            : 대량 데이터 연산, 외부 API 연동, 이메일 전송, Push/알림, 로그 etc
+        (3) 사용법
+            [ AppStart ] class 위에 [ @EnableAsync ]
+                : 비동기화 활성화
+            [ service ] method 위에 [ @Async ]
+                : method는 새로운 작업 스레드에서 생성·실행되며 백그라운드에서 처리됨
+        (4) Thread Pool
+            - 정의 : 한정된 스레드 개수 내에서 작업을 처리하는 방식
+            - 목적 : 대량의 작업 스레드가 생성되는 것을 차단하고 안정적인 병렬 작업을 수행
+            - Spring Thread Pool 사용법
+                ① MVC 폴더 내 config 폴더 생성
+                ② ThreadPoolConfig 클래스 생성 (클래스명이 변경되어도 문제 없음)
+                ③ class 상단 [ @Configuration ]
+                    * Spring container 에 bean 등록
+                ④ 멀티 스레드 커스텀 func 생성
+``` java
+package example.day01_250901._01_springThread;
+
+@Configuration      // Spring Container 내에 bean 객체 생성 // IOC
+public class ThreadPoolConfig {
+
+    // [1] 스프링 멀티스레드 Setting
+    @Bean // 메소드를 컨테이너 빈에 등록하는 어노테이션
+    public Executor taskExcutor(){
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);    // 기본·최소 실행 스레드 수 설정 (default 10)
+        executor.setMaxPoolSize(10);    // 최대 실행 스레드 수 설정 (default 20)
+        executor.setQueueCapacity(20);  // 최대 대기 스레드 수 // 대기 20 초과 시, 503 오류 발생
+        executor.initialize();          // 스레드 풀 초기화 = 서버 재실행 마다 초기화
+        return executor;
+    } // func end
+} // class end
+```
+
+[ Spring Scheduling ]
+    1) 정의 : 일정한 간격으로 특정 서비스를 자동 실행
+    2) 목적
+        - 백그라운드 자동 실행
+        - 자동화 구현
+        and so on
+    3) 사용법
+        (1) [ AppStart ] class 위에 [ @EnableScheduling ]
+        (2) 백그라운드에서 실행될 [ Service ] method 위에 [ @Scheduled ]
+        (3) 패턴 종류
+            @Scheduled(fixedRate = 1000)
+                : unit = milli-sec (위의 예시는 1초)
+            @Scheduled(fixedDelay = )
+                : unit = milli-sec
+            @Scheduled( cron = "* * * * * *")
+                : unit = sec min hr day month week
+                - 서버 시스템의 날짜/시간을 기준으로 작동
+        (4) cron 패턴
+            ① sec/min : 0~59
+            ② hr : 0~23
+            ③ day : 1~31
+            ④ month : 1~12
+            ⑤ week : 0(일)~6(토)
+        (5) Example
+            ex 1) 주말 오전 10시 마다 실행
+                @Scheduled( cron = "0 0 10 * * 0,6");
+            ex 2) 일요일 오전 9시 마다 실행
+                @Scheduled( cron = "0 0 9 * * 0");
+            ex 3) 매월 1일 오전 8시 마다 실행
+                @Scheduled( cron = "0 0 8 1 * *");
+        (6) 주의점
+            백그라운드 기반 처리이므로 HTTP response 불가
+            >> 해결방안 : HTTP 통신이 아닌 socket(연결) 방식으로 응답처리

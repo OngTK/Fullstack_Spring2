@@ -12,6 +12,7 @@ public class ThreadService {
             result += i;
             // ☆★ If 서비스 처리가 늦어진다면? ☆★☆★
             try{
+                System.out.println("ThreadService.thread1"+ result);
                 Thread.sleep(1000);         // thread 1초 정지
                 // 1초 * 10번 >> 10초 후 응답처리됨
             } catch (Exception e){
