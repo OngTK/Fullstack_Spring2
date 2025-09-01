@@ -29,7 +29,7 @@ public class TaskService {
         List<Map<String, String>> list  = taskDao.readProduct();
 
         for(Map<String, String> map : list ){
-            System.out.printf("상품명 : %s , 재고 : %s \t", map.get("product_name"), map.get("stock_quantity"));
+            System.out.printf("상품명 : %s , 재고 : %s \n", map.get("product_name"), map.get("stock_quantity"));
         }
     } // func end
 
