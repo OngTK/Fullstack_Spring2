@@ -1,0 +1,61 @@
+# 250902 =============================================
+
+HTTP : 하이퍼텍스트 전송 프로토콜
+    - 클라이언트 <-- Request / Response --> 서버
+    - HTTP 기반의 통신은 요청이 있을 경우에만 응답이 가능
+    - 무상태
+        = 통신 상태를 유지하지 않음
+        = 통신할 때마다 연결/매핑을 함
+
+** 요청이 없으나 응답이 필요한 경우 >> ** WebSocket ** 사용!!
+
+[ WebSocket ]
+    1) 정의
+        - 클라이언트와 서버 사이에서 ** 지속적으로 양방향 연결 **을 지원하는 프로토콜 (WS 프로토콜을 기반)
+    2) 특징
+        (1) 지속적인 양방향 연결 = 상태 유지
+        (2) Socket : 통신의 종착점(EndPoint)
+        (3) 클라이언트 소켓이 서버 소켓으로부터 연결을 요청
+        (4) 요청이 없으나 응답이 필요한 경우
+    3) 사용처
+        (1) 실시간 통신 : 채팅, 알림, 게임
+        (2) 보안 etc
+    4) 스프링 웹 서버 소켓 구현
+        (1) WebSocket dependencies 연결
+            - [ start.spring.io ] 접속
+            - WebSocket 의 dependencies 를 build.gradle 에 추가
+            ```
+                implementation 'org.springframework.boot:spring-boot-starter-websocket'
+            ```
+
+        (2) 서버소켓(핸들러) class 생성
+            - handler class 생성
+            - class에 [ TextWebSocketHandler ] 을 상속
+                TextWebSocketHandler 에 메소드를 Override 하여 사용
+            - TextWebSocketHandler 주요 method
+                ① afterConnectionEstablished
+                    - 클라이언트 소켓이 서버 소켓으로부터 연결을 성공하였을 때 실행되는 메소드
+                ② afterConnectionClosed
+                    - 클라이언트 소켓과 서버소켓의 연결이 종료되었을 때 실행되는 메소드
+                ③ handleTextMessage
+                    - 클라이언트 소켓이 서버 소켓으로 메세지를 보냈을 때 실행되는 메소드
+            - 참고 : ex. day02 > chatHandler
+
+        (3) 서버소켓(핸들러)을 ** 매핑 **하는 class 생성
+            - 개발자가 만든 서버 웹 소켓(핸들러) 객체들을 스프링이 인식할 수 있도록 경로·주소를 연결하는 것
+            - [ WebSocketConfig ] 와 같은 [Config] class 생성
+            - class를 [ WebSocketConfigurer ] 구현체로 연결 (implements)
+            - [ registerWebSocketHandlers ] 메소드를 override
+            - registerWebSocketHandlers 메소드에 [ 핸들러와 매핑 경로 ]를 등록
+                ① registry.addHandler( 서버웹소켓 객체, "경로")
+            - 참고 : ex. day02 > WebSocketConfig
+            ```
+                @Autowired
+                private ChatHandler chatHandler;    // DI - Server SebSocket
+
+                @Override
+                public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+                    // registry.addHandler( 서버웹소켓 객체, "경로")
+                    registry.addHandler( chatHandler, "/chat");
+                } // func end
+            ```
