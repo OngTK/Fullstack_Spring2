@@ -72,8 +72,11 @@ HTTP : 하이퍼텍스트 전송 프로토콜
         ```
 
         (2) JS WebSocket override method
-            - onopen(event) : 서버 소켓과 연결이 성공되었을 때 실행
-            - onclose(event) : 서버 소켓과 연결이 중단되었을 때 실행
-            - onerror(event) : 서버 소켓과 연결 중 에러가 발생되었을 때 실행
-            - onmessage(event) : 서버소켓으로부터 메세지를 수신하였을 때 실행
+            - onopen(event)     : 서버 소켓과 연결이 성공되었을 때 실행
+            - onclose(event)    : 서버 소켓과 연결이 중단되었을 때 실행
+            - onerror(event)    : 서버 소켓과 연결 중 에러가 발생되었을 때 실행
+            - onmessage(event)  : 서버소켓으로부터 메세지를 수신하였을 때 실행
             - [ 참고 : static > day02 > socket.js ]
+
+        (3) Client 에서 Server로 메세지 전송
+            - .send( 메시지 )

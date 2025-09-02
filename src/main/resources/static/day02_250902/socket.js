@@ -31,4 +31,25 @@ client.onerror = (event) => {
 // 서버소켓으로부터 메세지를 수신하였을 때 실행
 client.onmessage = ( event ) => {
     console.log("[client]서버소켓으로부터 메세지 수신")
+    
+    // [2.4.1] server로부터 인입된 메세지를 출력
+    // 인입된 event 객체
+    console.log(event)
+    // 인입된 event 내에 메시지가 저장된 위치 data
+    console.log(event.data)
+
+    // [2.4.2] sever로 부터 인입된 메세지를 HTML에 출력
+    const msgBox = document.querySelector('.msgBox')
+    let html = `<div>${event.data}</div>`
+    msgBox.innerHTML += html; 
+}
+
+// [2.5] 메세지 송신 함수 만들기 onSend()
+const onSend = async () => {
+    console.log("onSend func exe")
+    // [2.5.1] 입력받은 값 가져오기
+    const msg = document.querySelector(".msg").value;
+
+    // [2.5.2] client Socket 으로 msg 보내기
+    client.send(msg);
 }
