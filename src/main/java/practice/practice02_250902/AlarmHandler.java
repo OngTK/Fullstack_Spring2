@@ -46,5 +46,6 @@ public class AlarmHandler extends TextWebSocketHandler {
         for(WebSocketSession client : list){
             client.sendMessage(new TextMessage("익명의 유저가 퇴장했습니다."));
         }
-    }
-} // func end
+    } // func end
+
+} // class end
