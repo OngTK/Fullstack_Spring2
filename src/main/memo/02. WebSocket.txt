@@ -24,7 +24,7 @@ HTTP : 하이퍼텍스트 전송 프로토콜
         (1) WebSocket dependencies 연결
             - [ start.spring.io ] 접속
             - WebSocket 의 dependencies 를 build.gradle 에 추가
-            ```
+            ```java
                 implementation 'org.springframework.boot:spring-boot-starter-websocket'
             ```
 
@@ -39,7 +39,7 @@ HTTP : 하이퍼텍스트 전송 프로토콜
                     - 클라이언트 소켓과 서버소켓의 연결이 종료되었을 때 실행되는 메소드
                 ③ handleTextMessage
                     - 클라이언트 소켓이 서버 소켓으로 메세지를 보냈을 때 실행되는 메소드
-            - 참고 : ex. day02 > chatHandler
+            - [ 참고 : ex. day02 > chatHandler ]
 
         (3) 서버소켓(핸들러)을 ** 매핑 **하는 class 생성
             - 개발자가 만든 서버 웹 소켓(핸들러) 객체들을 스프링이 인식할 수 있도록 경로·주소를 연결하는 것
@@ -48,8 +48,8 @@ HTTP : 하이퍼텍스트 전송 프로토콜
             - [ registerWebSocketHandlers ] 메소드를 override
             - registerWebSocketHandlers 메소드에 [ 핸들러와 매핑 경로 ]를 등록
                 ① registry.addHandler( 서버웹소켓 객체, "경로")
-            - 참고 : ex. day02 > WebSocketConfig
-            ```
+            - [ 참고 : ex. day02 > WebSocketConfig ]
+            ```java
                 @Autowired
                 private ChatHandler chatHandler;    // DI - Server SebSocket
 
@@ -59,3 +59,21 @@ HTTP : 하이퍼텍스트 전송 프로토콜
                     registry.addHandler( chatHandler, "/chat");
                 } // func end
             ```
+    5) JS 웹 소켓 구현
+        ※ webSocket은 브라우저 Session 저장소를 사용
+            따라서, 브라우저마다 socket을 별도의 객체로 사용
+            동일 브라우저라도 새로고침 시 JS가 초기화 되므로 session 정보가 매번 변경됨
+        (1) JS가 Spring(서버)에게 WebSocket 접속·연결을 요청
+            - new WebSocket("WS서버주소")
+                => Java config class에서 매핑한 주소
+            - config class에서 매핑한 주소를 작성
+        ```js
+        const client = = new WebSocket("/chat");
+        ```
+
+        (2) JS WebSocket override method
+            - onopen(event) : 서버 소켓과 연결이 성공되었을 때 실행
+            - onclose(event) : 서버 소켓과 연결이 중단되었을 때 실행
+            - onerror(event) : 서버 소켓과 연결 중 에러가 발생되었을 때 실행
+            - onmessage(event) : 서버소켓으로부터 메세지를 수신하였을 때 실행
+            - [ 참고 : static > day02 > socket.js ]
