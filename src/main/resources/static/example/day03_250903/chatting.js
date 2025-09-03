@@ -84,6 +84,12 @@ clinet.onmessage = (event) => {
     // [2.3.4] 구성한 html 반영
     msgbox.innerHTML += html;
 
+    // [2.3.8] div msgbox 가 고정 사이즈보다 커지면 자동 스크롤 내리기
+    msgbox.scrollTop = msgbox.scrollHeight 
+    // scrollTop : 현재 dom의 스크롤 상단 꼭지점 위치
+    // scrollHeight : 스크롤 전체 길이
+    // == 스크롤 상단 꼭지점위치를 위에서 부터 전체길이 만큼 내린 곳에 위치시켜라
+
 } // func end
 
 
