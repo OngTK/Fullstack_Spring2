@@ -26,6 +26,7 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 
     // ※ ObjectMapper : JSON <-> Map 변환 라이브러리
     private final ObjectMapper objectMapper = new ObjectMapper();
+
     /// 주요 메소드
     /// - objectMapper.readValue(JSON 문자열, 변환할 클래스명.class) : Json 객체 > 클래스 타입으로 변환
     /// - objectMapper.writeValueAsString( Map객체 ) : Map 객체 > JSON 으로 변환
@@ -51,12 +52,12 @@ public class ChatSocketHandler extends TextWebSocketHandler {
         String nickName = (String) session.getAttributes().get("nickName");
 
         // [2.2] room 과 nickName이 일치하는 데이터가 접속명단에 존재하면 >> session 제거
-        if ( room != null && nickName != null){
+        if (room != null && nickName != null) {
             List<WebSocketSession> list = connectingMap.get(room);  // 해당 방번호의 접속명단 꺼내기
             list.remove(session);                                   // 명단에서 session 제거
 
             // [2.3] 퇴장한 nickName으로 알림메시지 보내기 (4번 func) - 입장 알림
-            alarmMessage(room, nickName+"이 퇴장했습니다.");
+            alarmMessage(room, nickName + "이 퇴장했습니다.");
         }
     } // func end
 
@@ -76,7 +77,8 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 
         Map<String, String> msg = objectMapper.readValue(
                 message.getPayload(),
-                new com.fasterxml.jackson.core.type.TypeReference<Map<String, String>>() {}
+                new com.fasterxml.jackson.core.type.TypeReference<Map<String, String>>() {
+                }
         );
         /// As-is : Map<String, String> msg = objectMapper.readValue(message.getPayload(), Map.class);
         /// 아래와 같은 경고 발생
@@ -105,15 +107,25 @@ public class ChatSocketHandler extends TextWebSocketHandler {
             }
 
             // [3.6] 접속한 nickName으로 알림메시지 보내기 (4번 func) - 입장 알림
-            alarmMessage(room, nickName+"이 입장했습니다.");
-        }
+            alarmMessage(room, nickName + "이 입장했습니다.");
+        } // [3.3] for end
+        // [3.7] If 메시지 Type이 msg이면
+        else if (msg.get("type").equals("msg")) {
+            // [3.8] 방 번호 확인
+            String room = (String) session.getAttributes().get("room");
+            // [3.9] 같은 방에 있는 모든 세션에 메시지 전송
+            for (WebSocketSession client : connectingMap.get(room)){
+                client.sendMessage(message);
+            }
+        } // [3.7] for end
         System.out.println(connectingMap);
     } // func end
 
     // [4] session IO 여부에 따른 메세지 전달
-    /// @param room : 방번호
+
+    /// @param room    : 방번호
     /// @param message : 메시지 내용
-    public void alarmMessage (String room, String message) throws Exception {
+    public void alarmMessage(String room, String message) throws Exception {
         // [4.1] Message 정보를 Map 타입으로 구성
         Map<String, String> msg = new HashMap<>();
         msg.put("type", "alarm");
@@ -123,10 +135,10 @@ public class ChatSocketHandler extends TextWebSocketHandler {
         String sendMsg = objectMapper.writeValueAsString(msg);
 
         // [4.3] 현재 같은 방에 위치한 모든 세션에게 메시지·알람 전달
-        for(WebSocketSession session : connectingMap.get(room)){
+        for (WebSocketSession session : connectingMap.get(room)) {
             session.sendMessage(new TextMessage(sendMsg));
         }
-        
+
     } // func end
 
 
