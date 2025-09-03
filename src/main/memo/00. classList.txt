@@ -13,3 +13,7 @@
         2. config 클래스 구현 > handler 클래스 매핑
         3. JS-html 구현
     practice > practice02
+
+250903
+    example > day03
+    static > example > day03

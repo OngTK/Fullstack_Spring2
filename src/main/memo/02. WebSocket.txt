@@ -30,6 +30,7 @@ HTTP : 하이퍼텍스트 전송 프로토콜
 
         (2) 서버소켓(핸들러) class 생성
             - handler class 생성
+                @Component 어노테이션으로 Spring Container에 Bean 삽입
             - class에 [ TextWebSocketHandler ] 을 상속
                 TextWebSocketHandler 에 메소드를 Override 하여 사용
             - TextWebSocketHandler 주요 method
@@ -44,6 +45,8 @@ HTTP : 하이퍼텍스트 전송 프로토콜
         (3) 서버소켓(핸들러)을 ** 매핑 **하는 class 생성
             - 개발자가 만든 서버 웹 소켓(핸들러) 객체들을 스프링이 인식할 수 있도록 경로·주소를 연결하는 것
             - [ WebSocketConfig ] 와 같은 [Config] class 생성
+                @Component       : Spring Container에 Bean 삽입
+                @EnableWebSocket : webSocket 활성화
             - class를 [ WebSocketConfigurer ] 구현체로 연결 (implements)
             - [ registerWebSocketHandlers ] 메소드를 override
             - registerWebSocketHandlers 메소드에 [ 핸들러와 매핑 경로 ]를 등록
@@ -51,7 +54,7 @@ HTTP : 하이퍼텍스트 전송 프로토콜
             - [ 참고 : ex. day02 > WebSocketConfig ]
             ```java
                 @Autowired
-                private ChatHandler chatHandler;    // DI - Server SebSocket
+                private ChatHandler chatHandler;    // DI·의존성 주입(Dependency Injection)
 
                 @Override
                 public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
@@ -80,3 +83,5 @@ HTTP : 하이퍼텍스트 전송 프로토콜
 
         (3) Client 에서 Server로 메세지 전송
             - .send( 메시지 )
+
+※ @Component : MVC 패턴은 아니지만 Spring Container 에 bean 등록시 반드시 필요한 Annotation
