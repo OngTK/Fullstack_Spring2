@@ -71,7 +71,7 @@ HTTP : 하이퍼텍스트 전송 프로토콜
                 => Java config class에서 매핑한 주소
             - config class에서 매핑한 주소를 작성
         ```js
-        const client = = new WebSocket("/chat");
+            const client = = new WebSocket("/chat");
         ```
 
         (2) JS WebSocket override method
@@ -85,3 +85,10 @@ HTTP : 하이퍼텍스트 전송 프로토콜
             - .send( 메시지 )
 
 ※ @Component : MVC 패턴은 아니지만 Spring Container 에 bean 등록시 반드시 필요한 Annotation
+
+※ RESTFul API 는 @ResponseBody를 통해 JSON <-> Map 변환을 제공
+    Socket 은 지원하지 않으니 직접 해야함
+※ ObjectMapper : JSON <-> Map 변환 라이브러리
+    ```
+        private final ObjectMapper objectMapper = new ObjectMapper();
+    ```
