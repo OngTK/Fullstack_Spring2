@@ -1,4 +1,4 @@
-250901
+250901 =============================
     Spring thread
             비동기 처리 방법
         Spring scheduling
@@ -7,18 +7,30 @@
                       _02_springScheduling
     practice > practice01
 
-250902
+250902 =============================
     WebSocket
         1. handler 클래스 구현
         2. config 클래스 구현 > handler 클래스 매핑
         3. JS-html 구현
+
     practice > practice02
     http://localhost:8080/example/day02_250902/socket.html
     http://localhost:8080/practice/day02_250902/alarm.html
 
-250903
-    example > day03
-    static > example > day03
+250903 =============================
     socket 채팅방 구현
     http://localhost:8080/example/day03_250903/chatting.html
 
+    example > day03
+    static > example > day03
+
+250904 250905  ======================
+    팀프로젝트
+        readme.md 편집
+        개인 : 트러블슈팅
+
+250908 =============================
+    Builder Pattern
+    Web Crawling
+
+    example > day 04
