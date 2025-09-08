@@ -32,4 +32,11 @@ public class CrawlingController {
         return crawlingService.task2();
     } // func end
 
+    // [3] 다음 날씨
+    @GetMapping("/craw3")
+    public Map<String, String> task3(){
+        System.out.println("CrawlingController.task3");
+        return crawlingService.task3();
+    }
+
 } // class end

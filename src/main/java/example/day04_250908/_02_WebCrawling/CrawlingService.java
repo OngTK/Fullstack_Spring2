@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.ExemptionMechanism;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class CrawlingService {
             // [1.4] 가져온 마크업을 반복하여, 텍스트만 추출
             for (Element a : aList) {
                 String title = a.text();    // == js innerHTML : 마크업 내의 내용을 가져옴
-                if(title.isBlank()) continue;
+                if (title.isBlank()) continue;
                 titleList.add(title);
             }
             return titleList;
@@ -47,44 +48,65 @@ public class CrawlingService {
         return null;
     } // func end
 
-    // [2] yes24
-    public List<Map<String, String>> task2(){
+    // [2] yes24 책 정보 크롤링
+    public List<Map<String, String>> task2() {
         List<Map<String, String>> bookList = new ArrayList<>();
 
         try {
-            String url = "https://www.yes24.com/product/category/daybestseller?categoryNumber=001&pageNumber=1&pageSize=24&type=day";
-            Document document = Jsoup.connect(url).get();
-            Elements titles = document.select(".info_name > .gd_name");
+            for (int page = 1; page <= 3; page++) {
+
+                String url = "https://www.yes24.com/product/category/daybestseller?categoryNumber=001&pageNumber=" + page + "&pageSize=24&type=day";
+                Document document = Jsoup.connect(url).get();
+                Elements titles = document.select(".info_name > .gd_name");
 //            Elements subTitles = document.select(".info_name > .gd_nameE");
-            Elements authors = document.select(".info_pubGrp > .info_auth > a:nth-child(1)");
-            Elements prices = document.select(".info_price > .txt_num > .yes_b");
-            Elements pictures = document.select(".img_bdr > .lazy");
+                Elements authors = document.select(".info_pubGrp > .info_auth > a:nth-child(1)");
+                Elements prices = document.select(".info_price > .txt_num > .yes_b");
+                Elements pictures = document.select(".img_bdr > .lazy");
 
 //            System.out.println(titles);
 //            System.out.println(subTitles);
 //            System.out.println(authors);
 //            System.out.println(prices);
 
-            for (int i = 0 ; i < titles.size() ; i++ ){
-                String title = titles.get(i).text();
+                for (int i = 0; i < titles.size(); i++) {
+                    String title = titles.get(i).text();
 //                String subtitle = subTitles.get(i).text();
-                String author = authors.get(i).text();
-                String price = prices.get(i).text();
-                String picture = pictures.get(i).attr("data-original");
+                    String author = authors.get(i).text();
+                    String price = prices.get(i).text();
+                    String picture = pictures.get(i).attr("data-original");
 
-                Map<String,String> book = new HashMap<>();
-                book.put("title", title);
+                    Map<String, String> book = new HashMap<>();
+                    book.put("title", title);
 //                book.put("subtitle", subtitle);
-                book.put("author", author);
-                book.put("price", price);
-                book.put("picture", picture);
+                    book.put("author", author);
+                    book.put("price", price);
+                    book.put("picture", picture);
 
-                bookList.add(book);
+                    bookList.add(book);
+                }
             }
         } catch (Exception e) {
-            System.out.println("CrawlingService.task2 "+e);
+            System.out.println("CrawlingService.task2 " + e);
         }
         return bookList;
     } // func end
+
+    // [3] 다음 날씨 정보 크롤링
+    public Map<String, String> task3(){
+        Map<String, String> map = new HashMap<>();
+        try{
+            String url = "https://weather.daum.net/";
+            Document document = Jsoup.connect(url).get();
+            Elements elements = document.select(".info_weather .num_deg");
+            // .info_weather 는 JS에서 동적으로 데이터를 삽입하므로 Jsoup으로 크롤링되지 않음
+
+            System.out.println("elements = " + elements);
+
+        } catch (Exception e) {
+            System.out.println("CrawlingService.task3 " + e);
+        }
+        return map;
+    } //
+    // 동적페이지이므로 Jsoup으로 크롤링이 되지 않음!!!!!!!!!!!!!!!!!!!!!!!
 
 } // class end
