@@ -24,7 +24,21 @@
         - 웹크롤링 한 번이 REST 요청 1번으로 데이터베이스 작동 >> 크롤링으로 인한 과부하를 발생시킬 수 있음
 
     5) 사용법
-        [ Jsoup 설치 ]
-            https://mvnrepository.com/artifact/org.jsoup/jsoup
-            Gradle 설치
-            ` implementation("org.jsoup:jsoup:1.21.2") `
+
+[ Jsoup ]
+    1) 설치
+        https://mvnrepository.com/artifact/org.jsoup/jsoup
+        Gradle 설치
+        ` implementation("org.jsoup:jsoup:1.21.2") `
+    2) 주요 메소드
+        (1) ` Document document = Jsoup.connect(URL).get(); `
+            - 주의 : import org.jsoup.nodes.Document;
+            - URL : 크롤링할 웹 주소
+            - 결과 : HTML 전체를 Document 객체로 가져옴
+        (2) `Element element = document.select("CSS 선택자");`
+            - CSS 선택자를 Element / Elements 타입으로 반환
+        (3) `String title = element.text();`
+            - 마크업 요소 내의 데이터 가져오기
+        (4) `String attr = element.attr("속성명")`
+            - 마크업 속성값 가져오기
+

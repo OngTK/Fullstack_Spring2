@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CrawlingService {
@@ -25,7 +27,7 @@ public class CrawlingService {
             // 주의 import org.jsoup.nodes.Document;
             // HTML을 통째로 가져오기
             Document document = Jsoup.connect(URL).get();
-//             System.out.println("Document : " + document);
+            // System.out.println("Document : " + document);
 
             // [1.3] HTML 식별자 확인
             // 식별자 안에 내용만 가져오기
@@ -45,5 +47,44 @@ public class CrawlingService {
         return null;
     } // func end
 
+    // [2] yes24
+    public List<Map<String, String>> task2(){
+        List<Map<String, String>> bookList = new ArrayList<>();
+
+        try {
+            String url = "https://www.yes24.com/product/category/daybestseller?categoryNumber=001&pageNumber=1&pageSize=24&type=day";
+            Document document = Jsoup.connect(url).get();
+            Elements titles = document.select(".info_name > .gd_name");
+//            Elements subTitles = document.select(".info_name > .gd_nameE");
+            Elements authors = document.select(".info_pubGrp > .info_auth > a:nth-child(1)");
+            Elements prices = document.select(".info_price > .txt_num > .yes_b");
+            Elements pictures = document.select(".img_bdr > .lazy");
+
+//            System.out.println(titles);
+//            System.out.println(subTitles);
+//            System.out.println(authors);
+//            System.out.println(prices);
+
+            for (int i = 0 ; i < titles.size() ; i++ ){
+                String title = titles.get(i).text();
+//                String subtitle = subTitles.get(i).text();
+                String author = authors.get(i).text();
+                String price = prices.get(i).text();
+                String picture = pictures.get(i).attr("data-original");
+
+                Map<String,String> book = new HashMap<>();
+                book.put("title", title);
+//                book.put("subtitle", subtitle);
+                book.put("author", author);
+                book.put("price", price);
+                book.put("picture", picture);
+
+                bookList.add(book);
+            }
+        } catch (Exception e) {
+            System.out.println("CrawlingService.task2 "+e);
+        }
+        return bookList;
+    } // func end
 
 } // class end
