@@ -32,8 +32,11 @@
 250908 =============================
     Builder Pattern
     Web Crawling
-
+        - Jsoup
     example > day 04
 
 250909 =============================
     HTTP 응답객체
+    ResponseEntity< T >
+    Web Crawling
+            - Selenium

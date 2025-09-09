@@ -43,3 +43,11 @@
         (4) `String attr = element.attr("속성명")`
             - 마크업 속성값 가져오기
 
+[ Selenium + Chrome ]
+    - 크롬을 활용한 눈속임으로 크롤링 함
+    1) 설치 from mvn
+        - Selenium java
+            `implementation("org.seleniumhq.selenium:selenium-java:4.35.0")`
+        - WebDriverManager
+            https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+            `implementation("io.github.bonigarcia:webdrivermanager:6.3.1")`
