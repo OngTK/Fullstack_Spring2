@@ -35,7 +35,8 @@
             - 주의 : import org.jsoup.nodes.Document;
             - URL : 크롤링할 웹 주소
             - 결과 : HTML 전체를 Document 객체로 가져옴
-        (2) `Element element = document.select("CSS 선택자");`
+        (2) `Elements elements = document.select("CSS 선택자");`
+            `Element element = document.selectFirst("CSS 선택자")`
             - CSS 선택자를 Element / Elements 타입으로 반환
         (3) `String title = element.text();`
             - 마크업 요소 내의 데이터 가져오기

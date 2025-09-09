@@ -1,0 +1,49 @@
+[ HTTP ] : HyperText Transfer Protocol
+
+[ HTTP 응답(반환) 코드 ]
+    1) 클라이언트의 요청에 대한 서버의 처리 결과를 숫자로 표현한 것
+    2) 주요 코드 (자세한 것은 검색 or Spring1 메모 확인)
+        (1) 200 번 대 - 성공
+            200 : 요청 성공 + 응답 데이터 포함
+            201 : 요청 성공 + 저장 성공
+            202 : 요청 성공 + 아직 처리중 (= 비동기 작동)
+            204 : 요청 성공 + 응답 데이터 없음(void)
+
+        (2) 300 번 대 - 리다이렉션, URL 이동 (다른 도메인으로 이동)
+            301 : 요청 정보가 다른 URL로 이동
+            302 : 임시적으로 다른 URL로 이동
+            304 : 캐시(임시저장 = 1회 이상 조회한 기록) 사용
+
+        (3) 400 번 대 - 클라이언트 오류
+            400 : 요청 형식 오류, QueryString/Body 등이 잘못되어 있음
+            401 : 인증 실패, 로그인 안 됨
+            403 : 접근 권한 없음, 권한 거부
+            404 : 요청 경로·자원이 없음 - url 오류
+            405 : HTTP METHOD 오류
+            409 : 자료 중복
+            415 : Header - Content/Type 오류
+
+        (4) 500 번 대 - 서버 오류
+            500 : 서버 내부 오류
+            503 : 서버·스레드 과부하, 점검 알림
+
+
+* 제네릭
+    : 멤버변수 타입을 클래스 내에서 정하지 않고, 객체 생성 시 멤버변수 타입을 정하는 문법
+
+[ Spring에서 HTTP 응답코드 반환 ]
+    1) ResponseEntity < T >
+        : Spring 에서 Http 응답 상태 코드와 본문(Data)를 함께 보내는 클래스
+        : T는 반드시 응답자료를 보냄 / 주의! Generic은 기본 타입이 불가능
+    2) 사용법
+        : Controller 에서 사용
+        ``` ex1)
+        public ResponseEntity< Integer > method(){
+               return ResponseEntity.status( 상태코드(ex: 200 300) ).body( 1 )
+        }
+        ```
+        ``` ex2)
+        public ResponseEntity< Dto > method(){
+               return ResponseEntity.status( 상태코드(ex: 200 300) ).body( dto )
+        }
+        ```
