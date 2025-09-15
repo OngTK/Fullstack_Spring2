@@ -1,7 +1,7 @@
 [ react ]
     1) 정의 : Meta 사에서 개발한 JS 라이브러리
     2) 개발 원인
-        "좋아요. 댓글쓰기 등" 기능을 하면 페이지를 전환해야 하는 불편함을 해소하기 위해 개발 (덜커덩 덜커덩...)
+        "좋아요. 댓글쓰기 등" 기능을 하면 페이지를 전환해야 하는 불편함을 해소하기 위해 개발
         -> 페이지 전환 없이 기능들을 구현
     3) 목적
         - JS에서 부족한 UI 조작과 효율성 보완
@@ -34,3 +34,61 @@
         - 장점 : 검색엔진(SEO), 필요한 데이터만 사용
         - 단점 : 새로고침(깜박거림), 서버에 부담이 큼
         ex) JSP
+
+[ React 환경 설치 ]
+    1) Node.js 설치
+        - https://nodejs.org/ko/
+        - v22.19.0(LTS) / windows
+        - 하단 windows 설치 프로그램(.msi) 클릭
+        - node js version 확인
+            - cmd : node -v : version 20 이상으로
+                    npm -v  : version 8 이상
+        (1) Node.js
+            - 크롬 엔진을 사용하여 HTML에 종속되지 않고 자체적인 JS를 실행하도록 하는 라이브러리
+            - npm · node package manager
+                : node.js 기반의 라이브러리·패키지를 설치·관리해주는 프로그램          <-> java의 gradle
+
+    2) REACT 설치
+        - 설치할 폴더를 선정 : Spring2 > src > main
+        - main 우클릭 > 통합터미널 열기 (vsCode 기준)
+        - `npm create vite@latest 프로젝트명 --template react`
+            >> npm create vite@latest reactapp --template react
+            ```
+            Need to install the following packages:
+            create-vite@7.1.1
+            Ok to proceed? (y)
+            ``` y 엔터
+        - [ Select a framework ] > [ React ]로 방향키로 선택 후 엔터
+        - [ Select a variant ] > [JavaScript + SWC]
+        - 터미널에 아래에 3개의 명령어를 실행
+            cd reactapp
+                : reactapp 디렉토리로 이동
+            npm install
+                : npm 설치
+            npm run dev
+                : react 실행
+
+        - 결과        
+        ```
+            ➜  Local:   http://localhost:5173/
+            ➜  Network: use --host to expose
+            ➜  press h + enter to show help
+        ```
+        + src/main/reactapp 폴더가 생성됨
+
+        (1) node.js를 처음 설치한 PC의 경우 error 발생
+            - vscode 재부팅 > 관리자 권한으로 vsCode 재실행
+            - npm 사용을 위한 강력 권한 부여(터미널) : 
+                Get-ExecutionPolicy       // 결과 : Restricted
+                Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+                Get-ExecutionPolicy         // 결과(성공) : RemoteSigned 
+                    
+        (2) react 종료 방법
+            - vscode 종료
+            - 터미널 종료
+            - 터미널에 ctrl + c 입력 후 종료
+
+    3) 이미 설치한 react를 실행하는 방법
+        - reactapp 폴더 우클릭 > 통합터미널에서 열기
+        - npm run dev
+            >> 서버가 실행되면 자동 리빌딩 되므로 매번 새로고침할 필요가 없다!!!!!!!!!!!!
