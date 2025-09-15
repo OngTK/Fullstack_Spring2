@@ -29,3 +29,25 @@
         spring.datasource.username=
         spring.datasource.password=
         ```
+
+[ 사용법 ]
+    1) application.properties 세팅
+        ```
+            spring.datasource.url=
+            spring.datasource.username=
+            spring.datasource.password=
+        ```
+
+    2) DAO를 대체할 Mapper Interface를 정의
+        - 사용 어노테이션
+            @Insert("Insert into ~~")
+            @Select("select * from ~~")
+            @Update("update ~~ set ~~")
+            @Delete("delete from ~~")
+
+        - 문법
+            #{} : SQL 문 안에 매개변수 삽입, 반드시 DTO의 멤버변수와 등일한 이름
+            ex) "select * from table where no=#{no}"
+
+        - Servie 계층
+            interface를 DI 하여, interface 메소드를 실행
