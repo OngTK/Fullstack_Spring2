@@ -115,3 +115,5 @@
         - react(SPA)의 최상위 HTML 파일 (※ 절대 삭제 X)
     5) package.json
         - 현재 프로젝트의 설정과 라이브러리 의존성을 포함하는 파일 (※ 절대 삭제 X) 
+
+https://docs.google.com/spreadsheets/d/1DTfgJnPK3GPjo4Ri-Lv7rF7M5wnSlxcf3VK6V0S2JMI/edit?gid=0#gid=0

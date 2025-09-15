@@ -1,0 +1,31 @@
+[ DAO ]
+    1) 정의
+        - Java에서 DB와 직접 연결하고 SQL 실행을 담당하는 class
+    2) 주요 인터페이스
+        Connection
+        PreparedStatement
+        ResultSet
+
+[ Mybatis ]
+    1) 정의
+        - 개발자가 작성한 SQL 문을 Java 객체로 자동으로 매핑 시켜주는 프레임워크
+    2) 특징
+        - SQL 매핑
+        - 결과 매핑
+        - 유연성
+        - Spring에서 공식 지원
+    3) 설치
+        - start.spring.io 에서 dependencies 추가
+        - 단, DBMS 라이브러리도 같이 존재해야 함.      ex) MySql, Oracle etc..
+    4) Java와 DB 연동 설정
+        - at `application.properties`
+        (1) 기본 세팅
+        - src > main > resources > application.properties 생성
+        - setting > encoding > Default encoding for properties file > UTF-8 설정
+
+        (2) JDBC 관련 명령어 작성
+        ```
+        spring.datasource.url=
+        spring.datasource.username=
+        spring.datasource.password=
+        ```

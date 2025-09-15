@@ -28,22 +28,30 @@ dependencies {
     // 스프링 웹
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
     // mySql
     runtimeOnly 'com.mysql:mysql-connector-j'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
     // webSocket
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     // jsoup-Web크롤링 // https://mvnrepository.com/artifact/org.jsoup/jsoup
     implementation("org.jsoup:jsoup:1.21.2")
+
     // Selenium java 4.35 // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java/4.35.0
     implementation("org.seleniumhq.selenium:selenium-java:4.35.0")
+
     // WebDriverManager  // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
     // Selenium과 함께 쓰기 위해서 설치
     implementation("io.github.bonigarcia:webdrivermanager:6.3.1")
+
+    // myBatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
 }
 
 tasks.named('test') {
