@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * <p> myBatis를 활용한 Mapping interFace
- * @since 250915
+ * @since 2025.09.15
  * */
 
 // 해당 mybatis interface를 Spring bean에 등록하는 어노테이션 = DAO 역할

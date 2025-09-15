@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p> myBatis를 활용한 DB 관리
+ * @since 2025.09.15
+ * */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/day06/batis")
