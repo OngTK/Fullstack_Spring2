@@ -4,7 +4,7 @@ package example.day07_250916.model.mapper;
 import example.day07_250916.model.dto.BoardDto;
 import org.apache.ibatis.annotations.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Mapper
 public interface BoardMapper {
@@ -16,7 +16,7 @@ public interface BoardMapper {
 
     // [2] readAll
     @Select("select * from board")
-    ArrayList<BoardDto> readAll();
+    List<BoardDto> readAll();
 
 
     // [3] read

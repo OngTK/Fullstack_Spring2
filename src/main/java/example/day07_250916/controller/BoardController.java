@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,11 +27,11 @@ public class BoardController {
 
     // [2] boardPrint()
     @GetMapping
-    public ResponseEntity<ArrayList<BoardDto>> boardPrint() {
+    public ResponseEntity<List<BoardDto>> boardPrint() {
         System.out.println("BoardController.boardPrint");
 
-        ArrayList<BoardDto> list = boardService.boardPrint();
-        return ResponseEntity.status(200).body(list);
+        List<BoardDto> list = boardService.boardPrint();
+        return ResponseEntity.ok().body(list);
     } // func end
 
     // [3] boardFind()

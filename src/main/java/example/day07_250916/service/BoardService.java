@@ -5,7 +5,7 @@ import example.day07_250916.model.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,10 +23,10 @@ public class BoardService {
     } // func end
 
     // [2] boardPrint()
-    public ArrayList<BoardDto> boardPrint() {
+    public List<BoardDto> boardPrint() {
         System.out.println("BoardService.boardPrint");
 
-        ArrayList<BoardDto> list = boardMapper.readAll();
+        List<BoardDto> list = boardMapper.readAll();
         return list;
     }
 
