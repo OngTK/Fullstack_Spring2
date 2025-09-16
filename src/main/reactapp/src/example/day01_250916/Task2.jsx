@@ -1,5 +1,9 @@
 // Task2 : 화면을 구성하시오.
 
+
+/* [Component 에 CSS 호출하는 방법] */
+import './Task2.css'
+
 const products = [
     { title: "무선 키보드", price: 45000, inStock: true },
     { title: "게이밍 마우스", price: 32000, inStock: false },
@@ -11,7 +15,7 @@ export default function Task2(props) {
 
     // retun
     return (<>
-    <div>
+    <div class="products">
         <Product item={products[0]} />
         <Product item={products[1]} />
         <Product item={products[2]} />

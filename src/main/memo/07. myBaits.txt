@@ -39,6 +39,9 @@
         ```
 
     2) DAO를 대체할 Mapper Interface를 정의
+        - interface 상단에
+        @Mapper 어노테이션 기재
+
         - 사용 어노테이션
             @Insert("Insert into ~~")
             @Select("select * from ~~")
@@ -48,6 +51,13 @@
         - 문법
             #{} : SQL 문 안에 매개변수 삽입, 반드시 DTO의 멤버변수와 등일한 이름
             ex) "select * from table where no=#{no}"
+
+        - 추상메소드에 대한 선언 후 어노테이션 및 문법 작성
+            - 매개변수는 SQL의 매개변수로 사용
+            - SQL 결과를 반환타입으로 선정
+                int : insert / update / delete 처리 레코드 수
+                Map/Dto/List : select 조회 결과 자료를 반환
+
 
         - Servie 계층
             interface를 DI 하여, interface 메소드를 실행
