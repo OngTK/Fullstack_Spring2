@@ -30,7 +30,7 @@ public interface BoardMapper {
 
 
     // [5] update
-    @Update("update board set bcontent=#{bcontent}, bwriter=#{bwriter} where bno=#{bno}")
+    @Update("update board set bcontent=#{bcontent} where bno=#{bno}")
     boolean update(BoardDto boardDto);
 
 
