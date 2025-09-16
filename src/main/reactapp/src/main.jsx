@@ -31,7 +31,14 @@ const create = createRoot(root);
 // createRoot(document.querySelector('#root')).render( <App /> )
 
 
-// 2025.09.16 Component1 렌더링 test
-import Component1 from './example/day01_250916/Component1.jsx';
-create.render(<Component1></Component1>);
+// 2025.09.16 Component 렌더링 실습 ===================================================
+// 참고! render은 무조건 1번만 가능
 
+// import Component1 from './example/day01_250916/Component1.jsx';
+// create.render(<Component1></Component1>);
+
+// import Component2 from './example/day01_250916/Component2.jsx';
+// create.render(<Component2></Component2>)
+
+import Component3 from './example/day01_250916/Component3.jsx';
+create.render(<Component3/>)
