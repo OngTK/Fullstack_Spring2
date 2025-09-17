@@ -1,7 +1,5 @@
 import { use, useState } from "react"
 
-
-let currentId = 1;
 export default function Task4(props) {
     // js
     const [people, setPeople] = useState([
