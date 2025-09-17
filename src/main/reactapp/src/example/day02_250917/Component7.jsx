@@ -38,11 +38,30 @@ export default function Component7 (props) {
         // setArray()   : 새로운 배열로 useState를 변경한다.
     }
 
+    // [3] input 처리 방법
+    const [data, setData] = useState('');
+    const dataAdd = ( event ) => {
+        // onChage 발생 시, event 결과·정보가 매개변수로 인입됨
+        console.log(event)
+        console.log(event.target)           // event.target : onChange가 발동한 마크업 정보
+        console.log(event.target.value)     // event.target.value : onChange가 발동한 마크업의 
+        
+        setData(event.target.value);        // setData로 재랜더링
+        console.log(data)
+    } 
+
     return(<>
-        <h3>useState 예제 : {count}</h3>
+        <h3>useState 예제 1 : {count}</h3>
         <button onClick={countAdd}> count 증가 </button>
-        <h3>useState 예제 : {array}</h3>
+        
+        <h3>useState 예제 2 : {array}</h3>
         <button onClick={arrayAdd}>과일추가</button>
+
+        <h3>useState 예제 3 : {data} </h3>
+        {/* react는 input에 초기값을 value로 넣어놓으면 수정이 불가 */}
+        {/* <input value={"배두훈"} /> */}
+        <input value={data} onChange={ dataAdd }/>
+        <input value={data} onChange={ (e)=>{ setData(e.target.value)}}/> 
     </>)
 }
 
@@ -65,7 +84,7 @@ export default function Component7 (props) {
  * 새로운 객체를 선언할 것이면
  * let c = new String("text") : 새로운 객체를 선언하였으므로, 새로운 주소값이 생성
  * when? 리터럴 일 때!!
- * 리터럴이 {} [] 등에 포함되어 있다면, 이는 리터럴에 상관없이 가장 밖의 {} []이 새로운 것이기에
+ * 리터럴이 {}객체 []배열 등에 포함되어 있다면, 이는 리터럴에 상관없이 가장 밖의 {} []이 새로운 것이기에
  * 매번 새로운 주소값이 발급
  * 
  */
