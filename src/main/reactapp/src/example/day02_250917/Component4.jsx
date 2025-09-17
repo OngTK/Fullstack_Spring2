@@ -39,13 +39,12 @@ function SubSubComp({ name, birth }) {
         count2++;
         console.log(`지역변수 : ${count}`)
         console.log(`전역변수 : ${count2}`)
-        document.querySelector(".countExport").innerHTML = count;
     }
 
     return (<>
         {/* JSX에서는 onclick >> onClick */}
         <button onClick={onAdd}> 버튼 </button>
-        <div class="countExport"> 지역변수 : / 전역변수 : </div>
+        <div> 지역변수 : {count} / 전역변수 : {count2}</div>
         <div> --- </div>
     </>)
 }
