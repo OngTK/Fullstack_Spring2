@@ -25,6 +25,7 @@ export default function Task4_copy(props) {
     } // func end
 
     // [3] 삭제 버튼 
+    // 연락처 중복이 없다는 가정하에, 연락처 정보를 받아서 비교 후 배열에서 삭제
     const onDelete = (deletePhone) => {
         // const newMembers = members.map((member) => { if(member.phone != deletePhone) return member ; })
         const newMembers = members.filter((member)=>{ return member.phone != deletePhone ; });
