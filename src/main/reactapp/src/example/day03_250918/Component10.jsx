@@ -58,7 +58,7 @@ export default function Component10(props) {
     // [4] PUT
     const boardUpdate = async () => {
 
-        
+
     } // func end
 
     // [5] DELETE
@@ -78,7 +78,7 @@ export default function Component10(props) {
             <div className="fs-4 fw-bold m-3">Spring - BoardService13</div>
             <div className="m-3">java → expamle → day07_25019 </div>
 
-            {/* [2] POST  */}
+            {/* ================================= [2] POST ================================= */}
             <div className="border rounded m-1 p-3 mb-3">
                 <div className="fs-5 fw-bold mb-2"> POST </div>
                 <div className="form-floating mb-2">
@@ -95,7 +95,7 @@ export default function Component10(props) {
             </div>
 
 
-            {/* [3] GET  */}
+            {/* ================================= [3] GET ================================= */}
             <div className="border rounded m-1 p-3 mb-3">
                 <div className="fs-5 fw-bold mb-2"> GET / DELETE </div>
                 <button className='btn btn-outline-success btn-sm mb-2' onClick={boardPrint} > 조회</button>
@@ -119,7 +119,7 @@ export default function Component10(props) {
                                         <td>{bcontent}</td>
                                         <td>{bwriter}</td>
                                         <td>
-                                            {/* [5] DELETE */}
+                                            {/* ================================= [5] DELETE ================================= */}
                                             <button className='btn btn-outline-danger btn-sm' onClick={() => { boardDelete(bno) }}> 삭제 </button>
                                         </td>
                                     </tr>
@@ -132,7 +132,7 @@ export default function Component10(props) {
             </div>
 
 
-            {/* [4] PUT  */}
+            {/* ================================= [4] PUT ================================= */}
             <div className="border rounded m-1 p-3 mb-3">
                 <div className="fs-5 fw-bold mb-2"> PUT </div>
                 <select className="form-select mb-2" aria-label="Default select"
