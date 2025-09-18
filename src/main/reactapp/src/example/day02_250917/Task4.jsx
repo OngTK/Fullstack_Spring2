@@ -1,7 +1,8 @@
-import { use, useState } from "react"
+import { useState } from "react"
 
 export default function Task4(props) {
     // js
+
     const [people, setPeople] = useState([
         { id: 1, name: "배두훈", phone: "010-0000-0000", age: "40" }
     ]);
@@ -9,6 +10,8 @@ export default function Task4(props) {
     const [name, setName] = useState("")
     const [phone, setPhone] = useState("")
     const [age, setAge] = useState(0)
+
+
 
     const createInfo = () => {
         const newId = currentId + 1;
