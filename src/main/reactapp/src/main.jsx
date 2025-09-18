@@ -72,5 +72,8 @@ const create = createRoot(root);
 // import Task4_copy from './example/day02_250917/Task4_copy';
 // create.render(<Task4_copy/>)
 
-import Component8 from './example/day03_250918/Component8';
-create.render(<Component8/>)
+// import Component8 from './example/day03_250918/Component8';
+// create.render(<Component8/>)
+
+import Component9 from './example/day03_250918/Component9';
+create.render(<Component9/>)
