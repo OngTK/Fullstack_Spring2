@@ -24,8 +24,13 @@ export default function Task5() {
         if (r.data = 1) {
             alert("저장 성공")
 
-            members.push(obj)                   // 객체를 members 배열에 push
-            setMembers([...members])            // 객체가 push된 새로운 members를 스프레드 연산자로 복사한 후 set
+            // members.push(obj)                   // 객체를 members 배열에 push
+            // setMembers([...members])            // 객체가 push된 새로운 members를 스프레드 연산자로 복사한 후 set
+            
+            // 위와 같이 처리할 경우, 방금 저장한 레코드는 PK가 없는 상태로 화면에 보여지므로
+            // 삭제 버튼이 동작하지 않는 것을 확인
+            // 번거롭지만 readAllMember를 다시 실행하여 members 를 다시 저장하는 것으로 해결
+            readAllMember()
 
             setName("");
             setPhone("");
@@ -81,10 +86,10 @@ export default function Task5() {
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>성명</th>
-                            <th>연락처</th>
-                            <th>나이</th>
-                            <th>비고</th>
+                            <th className="align-middle text-center">성명</th>
+                            <th className="align-middle text-center">연락처</th>
+                            <th className="align-middle text-center">나이</th>
+                            <th className="align-middle text-center">비고</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,10 +98,10 @@ export default function Task5() {
                                 const { mno, name, phone, age } = member;
                                 return (
                                     <tr key={mno}>
-                                        <td>{name}</td>
-                                        <td>{phone}</td>
-                                        <td>{age}</td>
-                                        <td>
+                                        <td className="align-middle text-center">{name}</td>
+                                        <td className="align-middle text-center">{phone}</td>
+                                        <td className="align-middle text-center">{age}</td>
+                                        <td className="d-flex justify-content-center">
                                             {/* ================================= [5] DELETE ================================= */}
                                             <button className='btn btn-outline-danger btn-sm' onClick={()=>{onDelete(mno)}}> 삭제 </button>
                                         </td>
