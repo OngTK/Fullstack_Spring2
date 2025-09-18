@@ -94,3 +94,5 @@
             useEffect
             axios
     Java
+        axios <-> Spring 통신을 위한 
+        @CrossOrigin 어노테이션

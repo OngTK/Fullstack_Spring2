@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
+@CrossOrigin(value="http://localhost:5173") // CORS 서로 다른 서버간의 요청·응답을 허용하는 어노테이션
 public class BoardController {
 
     public final BoardService boardService;
