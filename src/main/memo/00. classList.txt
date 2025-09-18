@@ -93,6 +93,10 @@
         day03
             useEffect
             axios
+
+            https://docs.google.com/spreadsheets/d/1he5j8jtydzWlxf5-GbMu3BmuSshf074Xu5_JWEXwvcY/edit?gid=1486375196#gid=1486375196
+            BoardService13 jsx 프론트 구현
     Java
         axios <-> Spring 통신을 위한 
         @CrossOrigin 어노테이션
+        

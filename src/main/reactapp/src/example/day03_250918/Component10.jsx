@@ -40,14 +40,36 @@ export default function Component10(props) {
         const r = await axios.get("http://localhost:8080/board")
         console.log(r)
         setBoards(r.data)
-    }
+    } // func end
 
     // [3.1] useEffect, 최초 컴퍼넌트 실행 시, 1회만 출력함수 실행
-    useEffect( ( ) => { boardPrint(); }, [])
+    useEffect(() => { boardPrint(); }, [])
+
+    // [3.2] 개별조회
+    const [updateBcontent, setUpdateBcontent] = useState("")
+    const [updateBwriter, setUpdateBwriter] = useState("")
+    const boardFind = async (bno) => {
+        const r = await axios.get(`http://localhost:8080/board/find?bno=${bno}`)
+        console.log(r)
+        setUpdateBcontent(r.data.bcontent)
+        setUpdateBwriter(r.data.bwriter)
+    } // func end
 
     // [4] PUT
+    const boardUpdate = async () => {
+
+        
+    } // func end
 
     // [5] DELETE
+    const boardDelete = async (deleteBno) => {
+        const r = await axios.delete(`http://localhost:8080/board?bno=${deleteBno}`)
+        // boardPrint()
+        // boardPrint를 다시 실행할 경우, 필요없는 서버통신이 발생함
+        // 이를 방지하기 위해 filter로 boards에서 해당 열만 삭제하고 화면에 setBoard로 랜더링하도록 함        
+        const newBoards = boards.filter((board)=>{return board.bno != deleteBno})
+        setBoards([...newBoards])
+    } // func end
 
 
     // return =========================================================================
@@ -75,7 +97,7 @@ export default function Component10(props) {
 
             {/* [3] GET  */}
             <div className="border rounded m-1 p-3 mb-3">
-                <div className="fs-5 fw-bold mb-2"> GET </div>
+                <div className="fs-5 fw-bold mb-2"> GET / DELETE </div>
                 <button className='btn btn-outline-success btn-sm mb-2' onClick={boardPrint} > 조회</button>
 
                 <table className="table table-striped table-hover">
@@ -96,7 +118,10 @@ export default function Component10(props) {
                                         <td>{bno}</td>
                                         <td>{bcontent}</td>
                                         <td>{bwriter}</td>
-                                        <td></td>
+                                        <td>
+                                            {/* [5] DELETE */}
+                                            <button className='btn btn-outline-danger btn-sm' onClick={() => { boardDelete(bno) }}> 삭제 </button>
+                                        </td>
                                     </tr>
                                 )
                             })
@@ -110,16 +135,29 @@ export default function Component10(props) {
             {/* [4] PUT  */}
             <div className="border rounded m-1 p-3 mb-3">
                 <div className="fs-5 fw-bold mb-2"> PUT </div>
+                <select className="form-select mb-2" aria-label="Default select"
+                    onChange={ (e) =>{console.log(e.target.value); boardFind(e.target.value);}}>
+                        {
+                            boards.map(( board )=>{ 
+                                return(
+                                <option key={board.bno} value={board.bno}>{board.bno}</option>
+                            )})
+                        }
+                </select>
+
+                <div className="form-floating mb-2">
+                    <input value={updateBcontent} onChange={(e) => { setUpdateBcontent(e.target.value) }}
+                        className="form-control" id="updateBcontent" placeholder="내용" />
+                    <label htmlFor="updateBcontent">내용</label>
+                </div>
+                <div className="form-floating mb-2">
+                    <input value={updateBwriter} onChange={(e) => { setUpdateBwriter(e.target.value) }}
+                        className="form-control" id="updateBwriter" placeholder="작성자" />
+                    <label htmlFor="updateBwriter">작성자</label>
+                </div>
+                <button className='btn btn-outline-success btn-sm mb-2' onClick={boardUpdate} > 수정</button>
 
             </div>
-
-
-            {/* [4] DELETE  */}
-            <div className="border rounded m-1 p-3">
-                <div className="fs-5 fw-bold mb-2"> DELETE </div>
-
-            </div>
-
         </div>
     </>)
 }
