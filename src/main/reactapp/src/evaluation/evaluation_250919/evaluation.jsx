@@ -269,7 +269,7 @@ function Reply(props) {
                         <div className="form-floating mb-2">
                             <input className="form-control" id="inputRno" placeholder="댓글 번호" type="number"
                                 value={rNo} onChange={(e) => { setRno(e.target.value) }} />
-                            <label htmlFor="inputRno">영화번호</label>
+                            <label htmlFor="inputRno">댓글 번호</label>
                         </div>
                         <div className="form-floating mb-2">
                             <input className="form-control" id="inputDelrpassword" placeholder="비밀번호" type="password"
