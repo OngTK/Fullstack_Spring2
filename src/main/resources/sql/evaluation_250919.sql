@@ -115,3 +115,5 @@ select * from replies where mno=1001 order by rno desc;
 delete from movies where mno=1011 and mPassword="pw0011";
 
 insert into movies (mName, mDirector, mIntro, mGenre, mPassword) values("베어더뮤지컬","누군가","뮤지커어어어얼","뮤지컬","pw0011");
+
+select * from replies where mno=1001 order by rno desc;
