@@ -81,5 +81,9 @@ const create = createRoot(root);
 // import Component10 from './example/day03_250918/Component10';
 // create.render(<Component10/>)
 
-import Task5 from './example/day03_250918/Task5';
-create.render(<Task5/>);
+// import Task5 from './example/day03_250918/Task5';
+// create.render(<Task5/>);
+
+// 2025.09.19 내부평가 ===================================================
+import Evaluation from './evaluation/evaluation_250919/evaluation';
+create.render(<Evaluation/>)

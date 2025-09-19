@@ -14,3 +14,4 @@ insert into members(name, phone, age) values ("조민규","010-0000-2222",36);
 insert into members(name, phone, age) values ("고우림","010-0000-3333",31);
 
 select * from members;
+delete from members where mno=5;
