@@ -62,11 +62,11 @@ public class MovieController {
      */
     // [5] delete
     @DeleteMapping
-    public ResponseEntity<Integer> deleteMovie(@RequestParam int mno){
+    public ResponseEntity<Integer> deleteMovie(@RequestParam int mno, @RequestParam String mPassword){
         System.out.println("MovieController.deleteMovie");
-        System.out.println("mno = " + mno);
+        System.out.println("mno = " + mno + ", mPassword = " + mPassword);
 
-        int result = movieService.deleteMovie(mno);
+        int result = movieService.deleteMovie(mno, mPassword);
         return ResponseEntity.ok().body(result);
     }
 

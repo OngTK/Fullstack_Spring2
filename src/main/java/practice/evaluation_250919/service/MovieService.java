@@ -31,8 +31,8 @@ public class MovieService {
 
 
     // [5] delete
-    public int deleteMovie(int mno){
-        return movieMapper.delete(mno);
+    public int deleteMovie(int mno, String mPassword){
+        return movieMapper.delete(mno, mPassword);
     } // func end
 
 } // class end

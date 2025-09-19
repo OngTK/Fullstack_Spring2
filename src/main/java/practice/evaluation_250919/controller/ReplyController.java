@@ -2,11 +2,12 @@ package practice.evaluation_250919.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import practice.evaluation_250919.model.dto.ReplyDto;
 import practice.evaluation_250919.service.ReplyService;
+
+import java.util.List;
 
 /**
  * @since 2025.09.19
@@ -28,17 +29,40 @@ public class ReplyController {
      * 비밀번호 설정하여 삭제 가능
      * */
     // [1] create
+    @PostMapping
+    public ResponseEntity<Integer> createReply(@RequestBody ReplyDto replyDto){
+        System.out.println("ReplyController.createReply");
+        System.out.println("replyDto = " + replyDto);
 
-
-    // [2] read - 생략
-
+        int result = replyService.createReply(replyDto);
+        return ResponseEntity.ok().body(result);
+    } // func end
 
     /**
      * 6. 영화별 토론 전체 조회
      * 특정 영화에 작성된 모든 토론 글을 조회 가능
      * */
-    // [3] readAll
 
+    // [2] read
+    @GetMapping("/read")
+    public ResponseEntity<List<ReplyDto>> readReply(@RequestParam int mno){
+        System.out.println("ReplyController.readReply");
+        System.out.println("mno = " + mno);
+
+        List<ReplyDto> result = replyService.readReply(mno);
+        return ResponseEntity.ok().body(result);
+    } // func end
+
+
+
+    // [3] readAll
+    @GetMapping
+    public ResponseEntity<List<ReplyDto>> readAllReply(){
+        System.out.println("ReplyController.readAllReply");
+
+        List<ReplyDto> result = replyService.readAllReply();
+        return ResponseEntity.ok().body(result);
+    } // func end
 
     // [4] update - 생략
 
@@ -47,8 +71,13 @@ public class ReplyController {
      * 사용자가 등록한 비밀번호 입력 후 삭제 가능
      * */
     // [5] delete
+    @DeleteMapping
+    public ResponseEntity<Integer> deleteReply(@RequestParam int rno, @RequestParam String rPassword){
+        System.out.println("ReplyController.deleteReply");
+        System.out.println("rno = " + rno + ", rPassword = " + rPassword);
 
-
-
+        int result = replyService.deleteReply(rno, rPassword);
+        return ResponseEntity.ok().body(result);
+    } // func end
 
 } // class end

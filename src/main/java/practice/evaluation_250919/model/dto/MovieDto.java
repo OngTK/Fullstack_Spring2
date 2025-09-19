@@ -17,5 +17,6 @@ public class MovieDto {
     private String mDirector;
     private String mGenre;
     private String mIntro;
+    private String mPassword;
 
 } // class end

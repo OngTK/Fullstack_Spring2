@@ -12,19 +12,19 @@ import java.util.List;
 public interface MovieMapper {
 
     // [1] create
-    @Insert("insert into movies (mName, mDirector, mIntro, mGenre) values(#{mName},#{mDirector},#{mIntro},#{mGenre})")
+    @Insert("insert into movies (mName, mDirector, mIntro, mGenre, mPassword) values(#{mName},#{mDirector},#{mIntro},#{mGenre},#{mPassword})")
     int create(MovieDto movieDto);
 
     // [2] read - 생략
 
     // [3] readAll
-    @Select("select * from movies")
+    @Select("select * from movies order by mno desc")
     List<MovieDto> readAll();
 
     // [4] update - 생략
 
     // [5] delete
-    @Delete("delete from movies where mno=#{mno}")
-    int delete(int mno);
+    @Delete("delete from movies where mno=#{mno} and mPassword=#{mPassword}")
+    int delete(int mno, String mPassword);
 
 } // Interface end
