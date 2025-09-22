@@ -89,5 +89,8 @@ const create = createRoot(root);
 // create.render(<Evaluation/>)
 
 // 2025.09.22 day04 =====================================================
-import Conponent11 from './example/day04_250922/Component11';
-create.render(<Conponent11/>)
+// import Conponent11 from './example/day04_250922/Component11';
+// create.render(<Conponent11/>)
+
+import Conponent12 from './example/day04_250922/Component12';
+create.render(<Conponent12/>)
