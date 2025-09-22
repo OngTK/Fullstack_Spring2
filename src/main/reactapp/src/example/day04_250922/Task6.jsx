@@ -60,10 +60,11 @@ function SignIn(props) {
         // axios 서버 통신
 
         // 로그인 성공
-        alert("로그인 성공")
-        navigate("/")
-
-    }
+        if (id == "admin" && pwd == "1234") {
+            alert("로그인 성공")
+            navigate("/")
+        }
+    } // func end
 
     return (<><div>
         <div className="fs-2 fw-bold mb-4">로그인 페이지</div>
