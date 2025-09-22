@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Link, Route, Routes, useNavigate } from "react-router-dom"
 
 // [1] 홈페이지
 function Home(props) {
@@ -14,19 +14,31 @@ function Home(props) {
 // [2] 회원가입
 function SignUp(props) {
 
-    const signupFormRef = useRef();
+    const idRef = useRef(null);
+    const pwdRef = useRef(null);
+
+    const navigate = useNavigate();
+
     const signUp = () => {
-        console.log(signupFormRef.current.elements['signupId'].value)
-        console.log(signupFormRef.current.elements['signupPwd'].value)
+        console.log(idRef.current.value)
+        console.log(pwdRef.current.value)
+        const id = idRef.current.value;
+        const pwd = pwdRef.current.value;
+
+        // axios 서버 통신 생략
+
+        // 회원가입 성공
+        alert("회원가입 성공")
+        navigate('/signin')
     }
 
     return (<><div>
         <div className="fs-2 fw-bold mb-4">회원가입 페이지</div>
-        <form ref={signupFormRef}>
+        <form >
             <input type="text" placeholder="아이디" className="form-control mb-2" style={{ width: "25%" }}
-                name="signupId" />
+                name="signupId" ref={idRef} />
             <input type="password" placeholder="비밀번호" className="form-control mb-2" style={{ width: "25%" }}
-                name="signupPwd" />
+                name="signupPwd" ref={pwdRef} />
             <button type="button" className="btn btn-outline-primary" onClick={signUp}>회원가입</button>
         </form>
     </div></>)
@@ -36,9 +48,21 @@ function SignUp(props) {
 function SignIn(props) {
 
     const signinFormRef = useRef();
+    const navigate = useNavigate();
+
     const signIn = () => {
-        console.log( signinFormRef.current.elements['signinId'].value)
-        console.log( signinFormRef.current.elements['signupPwd'].value)
+        console.log(signinFormRef.current.elements['signinId'].value)
+        console.log(signinFormRef.current.elements['signupPwd'].value)
+
+        const id = signinFormRef.current.elements['signinId'].value;
+        const pwd = signinFormRef.current.elements['signupPwd'].value;
+
+        // axios 서버 통신
+
+        // 로그인 성공
+        alert("로그인 성공")
+        navigate("/")
+
     }
 
     return (<><div>
