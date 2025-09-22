@@ -1,0 +1,11 @@
+[ npm 설치 하기 ]
+    `npm install react-bootstrap bootstrap`
+    `npm install bootstrap@5.3.8`
+    
+[ import 예제 ]
+    - 버튼 컴포넌트 삽입
+    ```
+    import Button from 'react-bootstrap/Button';
+    // or less ideally
+    import { Button } from 'react-bootstrap';
+    ```
