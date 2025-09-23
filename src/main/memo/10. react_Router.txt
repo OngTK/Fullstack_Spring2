@@ -1,0 +1,50 @@
+[ Router ]
+    1) 정의
+        - SPA 환경에서 페이지 전환을 구현할 수 있게 해주는 라우팅 라이브러리
+        - 가상의 URL을 생성하여 서로 다른 컴포넌트를 렌더링하게 함
+    2) 사용법
+        (1) 설치
+            ` npm install react-router-dom `
+        (2) Root컴포넌트를 ` <BrowserRouter> </BrowserRouter> `로 감쌈
+        (3) 연결할 가상의 URL과 컴포넌트를 정의
+            (3.1) 기본 사용법
+            ```
+            <Routes>
+                <Route path="가상URL" element={< 컴포넌트명 />} />
+            </Routes>
+            ``` 
+
+            (3.2) Routes + 와일트카드 *
+            ```
+                <Route path="*" element={< 예외 컴포넌트명 />} />
+            ```
+            : (3.1)에서 정의한 URL 외의 모든 정의하지 않은 URL에 대해서 예외 컴포넌트로 연결
+
+
+            (3.3) path variable 매개변수 사용법
+            ```
+                <Route path="가상URL/:매개변수1/:매개변수2" element={< 컴포넌트명 />} />
+            ```
+
+        (4) 가상 URL 연결
+            ```
+            <Link to="가상URL"> ~~ </Link>
+            ```
+        (5) func 내에서 이동할 경우, useNavigate()
+            AS-IS: `location.href = "URL"` 
+            TO-BE:  ``` 
+                    const navigate = useNavigate()
+                    navigate("가상URL")
+                    ```
+
+        (6) URL 경로 상 매개변수 가져오기
+            (6.1) QueryString
+                ```
+                    const [searchParams] = useSearchParams();
+                    const 매개변수 = searchParams.get('매개변수') 
+                ```
+            (6.2) Path vairalbe
+                ```
+                    const { 매개변수1, 매개변수2 } = useParams();
+                ```
+                Route - path에 정의한 매개변수명과 일치시킨 후 구조분해할당
