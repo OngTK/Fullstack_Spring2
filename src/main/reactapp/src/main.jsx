@@ -99,15 +99,18 @@ const create = createRoot(root);
 // create.render(<Task6/>)
 
 // 2025.09.23 day05 =====================================================
-import Component13 from './example/day05_250923/Component13';
-// 관례적으로 main jsx에서 삽입.
-// [1.2] store import
-import store from './example/day05_250923/store';
-// [1.1] Porvide import
-import { Provider } from 'react-redux';
+// import Component13 from './example/day05_250923/Component13';
+// // 관례적으로 main jsx에서 삽입.
+// // [1.2] store import
+// import store from './example/day05_250923/store';
+// // [1.1] Porvide import
+// import { Provider } from 'react-redux';
 
-create.render(
-    <Provider store={ store }>
-        <Component13 />
-    </Provider>
-);
+// create.render(
+//     <Provider store={ store }>
+//         <Component13 />
+//     </Provider>
+// );
+
+import App from './example/day05_250923/Task7/App'
+create.render(<App/>)

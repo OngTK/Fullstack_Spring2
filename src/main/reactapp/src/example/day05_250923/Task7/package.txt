@@ -1,0 +1,14 @@
+day05 
+└───Task7
+    ├── APP.jsx         : 최초 main.jsx에서 렌더링 되는 컴포넌트 파일
+    ├── pages           : page 컴포넌트를 저장하는 폴더
+    │   ├── HomePage.jsx
+    │   ├── LoginPage.jsx
+    │   └── ProfilePage.jsx
+    ├── store           : sotre / slice js 를 저장하는 폴더
+    │   ├── stroe.jsx 
+    │   └── userStore.jsx
+    └── component       : 컴포넌트 저장
+        └── Header.jsx
+
+Main.jsx
