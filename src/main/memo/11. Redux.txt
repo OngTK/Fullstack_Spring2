@@ -11,6 +11,35 @@
         (3) 컴포넌트 간 props 전달이 복잡해 질 때
 
     4) 설치
-        (1) redux 설치 > react 터미널 > 아래 2개 모두 설치
-            ` npm i @reduxjs/toolkit `
-            ` npm i react-redux ` 
+        react 터미널 > 아래 2개 모두 설치
+        ` npm install @reduxjs/toolkit `
+        ` npm install react-redux ` 
+
+    5) 용어
+        (1) Store - 저장소
+            : 모든 상태(전역변수·Slice)들을 관리·보관하는 장소 
+            ```
+            const store = configureStore({
+                    reducer : {
+                        상태 : 상태Reducer 
+                    }
+                })
+            ```
+        (2) Slice 
+            : 상태와 reducer을 정의하는 곳
+            ```
+            createSlice({name : slice이름, 초기값, reducers : { 액션함수명 : (state)=>{} } } );
+            ```
+        (3) Reducer 
+            - 상태를 변경하는 함수
+        (4) action
+            - 상태를 변경하기 위해 stroe에 보내는 함수
+
+    6) 실행순서
+        일반컴포넌트 -(action)-> Reducer --> Store --> Component
+
+        ex) 로그인
+        (1) 일반 컴포넌트에서 login action 실행
+            dispatch( login )
+        (2) action이 store로 전달
+        (3) store에 등록된 reducer을 찾아 login action에 따라, state를 업데이트
