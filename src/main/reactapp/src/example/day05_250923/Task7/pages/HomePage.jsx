@@ -3,7 +3,7 @@ export default function HomePage(props) {
 
     return (<>
         <div>
-            HomePage
+            <h3 className="mb-3">HomePage</h3>
         </div>
     </>)
 }

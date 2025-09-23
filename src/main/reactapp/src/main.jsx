@@ -113,4 +113,10 @@ const create = createRoot(root);
 // );
 
 import App from './example/day05_250923/Task7/App'
-create.render(<App/>)
+// import store
+import store from './example/day05_250923/Task7/store/store';
+import { Provider } from 'react-redux';
+create.render(
+    <Provider store={store}>
+        <App />
+    </Provider>)
