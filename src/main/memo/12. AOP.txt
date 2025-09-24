@@ -1,0 +1,40 @@
+[AOP, 관점지향 프로그래밍]
+    1) 정의
+        부가 기능을 하나로 모듈화하여 핵심 비즈니스 로직을 분리
+    2) 사용처
+        로그(기록), 트랜잭션, 보안(인증/권한)
+    3) 설치
+        ` implementation 'org.springframework.boot:spring-boot-starter-aop' `
+
+    4) 사용
+        (1) AOP class 어노테이션 주입
+            ```
+                @Aspect         // 스프링 AOP container에 등록
+                @Component      // 스프링 bean container 등록
+            ```
+        (2) AOP 메소드 작성 및 @Before / @After 어노테이션 주입
+            @Before : Service 메소드 이전에 AOP 메소드가 실행
+            @After  : Service 메소드 이후에 AOP 메소드가 실행
+            ```
+                @Before()
+                public void check1(){
+                    System.out.println("[코로나] 열 체크");
+                }
+            ```
+        (3) @Before / @After 어노테이션에 조건 기재
+            ex ` @Before("execution( * AopService.*(..) ) ") `
+
+            @Before("execution( ① ②.③ ( ④ ) ) ")
+            ① Service 메소드의 리턴 타입
+                * : 모든 리턴 타입
+                int : int 리턴 타입
+            ② Service 또는 AOP 대상 클래스 경로
+                - 동일 패키지 : 클래스명만 기재
+                - 다른 패키지 : Java 패키지 이하의 경로
+            ③ .메소드명
+                - ②에 해당하는 class 내의 대상 메소드
+            ④ 매개변수
+                - 메소드에 어떠한 매개변수를 포함할 때 실행할 것인지
+                - (..) : 모든 매개변수에 대하여
+
+            override로 인하여 동일한 메소드 명에 다른 반환/매개변수로 구분하기 위해

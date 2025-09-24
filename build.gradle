@@ -52,6 +52,9 @@ dependencies {
 
     // myBatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
+
+    // AOP
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
 
 tasks.named('test') {
