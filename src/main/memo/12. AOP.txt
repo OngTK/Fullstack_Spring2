@@ -48,5 +48,17 @@
             - result에 결과값으로 바인딩할 변수명 을 정의
 
         (5) @Around
+            ```
+                @Around("execution ( * class.method (..))")
+                public Object AOP메소드명( ProceedingJoinPoint joinPoint ){
+
+                    joinPoint                   : AOP 객체
+                    joinPoint.getSignature()    : AOP 메소드명
+                    joinPoint.getArgs()         : 실행메소드의 매개변수를 배열 타입으로 확인
+                    joinPoint.proceed()         : Service 메소드 실행하기, 예외처리 필수
+                    Object result = joinPoint.proceed();    : Service 메소드 실행 + 결과 반환 받기
+                    return result;              : Service 실행 결과 Object를 결과로 반환
+                }
+            ``
 
 참고 : example > day08
