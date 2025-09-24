@@ -32,7 +32,7 @@ export default function MenuPage(props) {
                                     상품명: <span className="fs-5 fw-semibold">{item.name}</span>
                                 </div>
                                 <div style={{ width: "33%" }}>
-                                    가격: <span className="fs-5 fw-semibold">{item.price}</span>
+                                    가격: <span className="fs-5 fw-semibold">{item.price.toLocaleString()}</span>
                                 </div>
                                 <button type="button" className="btn btn-outline-success btn-sm"
                                     onClick={() => { addtocartHandel(item) }}> 장바구니에 담기 </button>

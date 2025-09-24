@@ -19,6 +19,7 @@ const cartSlice = createSlice({
             for(let i = 0 ; i < state.cartItems.length ; i++ ){
                 if( state.cartItems[i].id == item.id ){
                     existedItem = item.id;
+                    console.log(existedItem)
                     break;
                 } 
             } 
@@ -26,8 +27,9 @@ const cartSlice = createSlice({
             // [2.3] 조건문 
             // 이미 있는 상품이면 수량 1증가, 없던 상품이면 신규 추가
             if( existedItem != 0){
-                state.cartItems.forEach(()=>{})
-                //TODO
+                state.cartItems.forEach((item)=>{
+                    if(item.id == existedItem){item.qty += 1}
+                })                
             } else { 
                 state.cartItems.push( {...item, qty : 1} )
             }
