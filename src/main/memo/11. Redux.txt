@@ -38,8 +38,115 @@
     6) 실행순서
         일반컴포넌트 -(action)-> Reducer --> Store --> Component
 
-        ex) 로그인
-        (1) 일반 컴포넌트에서 login action 실행
-            dispatch( login )
-        (2) action이 store로 전달
-        (3) store에 등록된 reducer을 찾아 login action에 따라, state를 업데이트
+        (1) 최상위 Root 컴포넌트에서 Provider 컴포넌트의 sotre을 공급
+            ```jsx
+            import { Provider } from 'react-redux';
+            import store from './store';
+
+            createRoot(document.getElementById('root')).render(
+                <Provider store={store}>
+                    <하위 Component/>
+                </Provider>
+            );
+            ```
+
+        (2) store에 상태값 가져오기
+            ```
+            import { useSelector } from 'react-redux';
+
+            const { 변수명 } = useSelector( state => state.변수명 );
+            // Slice에서 선언한 해당 store의 명칭을 일치
+
+            ```
+
+        (3) store 상태값 변경하기
+            ```jsx
+            // (3.1) slice에 선언한 액션함수를 import
+            import { login, logout } from './userSlice.jsx';
+
+            ...(중략)
+
+                const loginHandle = () => {
+                    // dispatch를 이용하여 slice의 액션함수를 실행
+                    dispatch(login());
+                };
+
+            ```
+            매개변수가 있을 경우, 
+                1 - slice에서 매개변수 선언 및 매개변수에 대한 액션함수 기술
+                  - 일반적으로 매개변수는 아래와 같이 작성 
+                    ` 액션함수 : (state, action ) => { OO.state = true; OOinfo = action.payload; }` 
+                2 - 컴포넌트에서 액션함수(매개변수) 형태로 매개변수를 전달
+
+
+
+=== Redux는 전역 상태이며 영구저장 되지 않음
+    = 새로고침하면 전역 상태의 값이 초기화됨
+
+    방법 1. CSR·client side rendering + 퍼시스턴스
+    방법 2. SSR·Server side rendering + 서버(Spring)
+    방법 3. Next.js (react의 단점을 보완 = SSA, 검색엔진 SEO)
+
+
+[ 퍼시스턴스 · Persistence ]
+    로컬/세션 스토리지에 상태를 저장·유지하는 방법
+    
+    1) 설치
+        ` npm i redux-persist `
+    2) 설정
+
+        (1) store.jsx 의 import
+            ```jsx
+                // persist 관련 
+                import { persistStore, persistReducer } from 'redux-persist';
+                // 로컬스토리지 사용
+                import storage from 'redux-persist/lib/storage';                
+                // 세션 사용
+                import sessionStorage from "redux-persist/lib/storage/session"; 
+            ```
+
+        (2) 퍼시스턴스 설정 및 store 선언
+            (2.1) persistStore 설정
+                const persistConfig = {key : 'Storage에 저장할 키 이름' , storage or sessionStorage }
+                ```jsx
+                    const persistConfig = { key : 'user' , storage }
+                ```
+
+            (2.2) persistReducer 설정
+                const persistedReducer = persistReducer( 퍼시스턴스 설정, 설정할 리듀서(or Slice) )
+                ```jsx
+                    const persistedReducer = persistReducer( persistConfig , userSlice )
+                ```
+
+            (2.3) store 선언
+                ```jsx
+                    const store = configureStore({
+                        reducer : {
+                            user : persistedReducer
+                        }
+                    })
+                ```
+        
+        (3) psersistStore 내보내기
+            ```jsx
+                export const persisotr = persistStore( store );
+            ```
+
+        (4) main.jsx 에서 Persistence import
+            ```jsx
+                import App from './example/day05_250923/Task7/App'
+
+                // import store
+                import store, { persistor } from './example/day05_250923/Task7/store/store';
+                import { Provider } from 'react-redux';
+                
+                // import Persistence
+                import { PersistGate } from 'redux-persist/integration/react';
+
+                create.render(
+                    <Provider store={store}>
+                        <PersistGate loading={null} persistor={persistor}>
+                            <App />
+                        </PersistGate>
+                    </Provider>)
+            ```

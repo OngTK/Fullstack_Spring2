@@ -116,3 +116,10 @@
         day05 > userSlice
         https://docs.google.com/spreadsheets/d/1QEJ-DvLa22uUQucMeCZDUH9VH5PPZr5-vzLx5UF8Qig/edit?gid=1799059459#gid=1799059459
         
+200924 =============================
+    Redux
+        새로고침에 따른 상태 저장
+            1 : Axios 서버에게 재요청
+                SSR
+            2 : 퍼시스턴스 = session sotrage에 저장하는 방법
+                day05 > task7 > sotre.jsx

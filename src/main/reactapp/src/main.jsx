@@ -114,9 +114,14 @@ const create = createRoot(root);
 
 import App from './example/day05_250923/Task7/App'
 // import store
-import store from './example/day05_250923/Task7/store/store';
+import store, { persistor } from './example/day05_250923/Task7/store/store';
 import { Provider } from 'react-redux';
+// import Persistence
+import { PersistGate } from 'redux-persist/integration/react';
+
 create.render(
     <Provider store={store}>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+            <App />
+        </PersistGate>
     </Provider>)
