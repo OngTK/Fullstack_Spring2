@@ -112,11 +112,23 @@ const create = createRoot(root);
 //     </Provider>
 // );
 
-import App from './example/day05_250923/Task7/App'
-// import store
-import store, { persistor } from './example/day05_250923/Task7/store/store';
+// import App from './example/day05_250923/Task7/App'
+// // import store
+// import store, { persistor } from './example/day05_250923/Task7/store/store';
+// import { Provider } from 'react-redux';
+// // import Persistence
+// import { PersistGate } from 'redux-persist/integration/react';
+// create.render(
+//     <Provider store={store}>
+//         <PersistGate loading={null} persistor={persistor}>
+//             <App />
+//         </PersistGate>
+//     </Provider>)
+
+// 2025.09.24 day06 =====================================================
+import App from './example/day06_250924/Task8/App';
+import store, { persistor } from './example/day06_250924/Task8/store/store';
 import { Provider } from 'react-redux';
-// import Persistence
 import { PersistGate } from 'redux-persist/integration/react';
 
 create.render(
@@ -124,4 +136,5 @@ create.render(
         <PersistGate loading={null} persistor={persistor}>
             <App />
         </PersistGate>
-    </Provider>)
+    </Provider>
+)

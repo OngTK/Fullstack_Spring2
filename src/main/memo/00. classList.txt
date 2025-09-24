@@ -123,3 +123,5 @@
                 SSR
             2 : 퍼시스턴스 = session sotrage에 저장하는 방법
                 day05 > task7 > sotre.jsx
+
+    day06 - Task8
