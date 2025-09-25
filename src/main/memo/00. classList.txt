@@ -111,12 +111,12 @@
             example > day04
         Router
 
-200923 =============================
+250923 =============================
     Redux
         day05 > userSlice
         https://docs.google.com/spreadsheets/d/1QEJ-DvLa22uUQucMeCZDUH9VH5PPZr5-vzLx5UF8Qig/edit?gid=1799059459#gid=1799059459
         
-200924 =============================
+250924 =============================
     Redux
         새로고침에 따른 상태 저장
             1 : Axios 서버에게 재요청
@@ -128,3 +128,7 @@
     Java
         관점지향 프로그래밍 AOP
         day08
+
+250925 =============================
+    Java
+        @Transactional
