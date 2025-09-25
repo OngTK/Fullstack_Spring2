@@ -14,7 +14,9 @@ const cartSlice = createSlice({
         input : (state, action) => { 
             // [2.1] 장바구니에 담은 상품
             const item = action.payload;
+
             // [2.2] 장바구니에 담은 상품이 이미 장바구니에 있는지 확인
+            // 이미 장바구니에 있는 상품이라면 existedItem에 제품 ID를 저장
             let existedItem = 0;
             for(let i = 0 ; i < state.cartItems.length ; i++ ){
                 if( state.cartItems[i].id == item.id ){
@@ -25,7 +27,7 @@ const cartSlice = createSlice({
             } 
 
             // [2.3] 조건문 
-            // 이미 있는 상품이면 수량 1증가, 없던 상품이면 신규 추가
+            // 이미 있는 상품이면 수량 1 증가, 없던 상품이면 cartItems에 item 추가 + qty 1
             if( existedItem != 0){
                 state.cartItems.forEach((item)=>{
                     if(item.id == existedItem){item.qty += 1}
