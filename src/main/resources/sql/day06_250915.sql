@@ -97,4 +97,4 @@ INSERT INTO trans (name, money) VALUES
 ('고우림', 200000);
 
 drop table if exists trans;
-select * from trans;-- 
+select * from trans;
