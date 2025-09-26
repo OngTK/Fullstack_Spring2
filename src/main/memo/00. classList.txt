@@ -134,3 +134,18 @@
         @Transactional
 
         practice 03
+
+250926 =============================
+    React 
+        Mui 사용
+        https://mui.com/
+        설치
+            ` npm install @mui/joy @emotion/react @emotion/styled `
+
+            React - CSS 적용방법
+        1. CSS 파일 import
+        2. 마크업·컴포넌트에 **CSS 객체**로 기재
+            ` <div style={ { width:"25%" } } `
+            ※ 주의 : 카멜표기법 사용
+
+    Task9 > Task8에 mui 설치하기

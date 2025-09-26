@@ -126,8 +126,29 @@ const create = createRoot(root);
 //     </Provider>)
 
 // 2025.09.24 day06 =====================================================
-import App from './example/day06_250924/Task8/App';
-import store, { persistor } from './example/day06_250924/Task8/store/store';
+// import App from './example/day06_250924/Task8/App';
+// import store, { persistor } from './example/day06_250924/Task8/store/store';
+// import { Provider } from 'react-redux';
+// import { PersistGate } from 'redux-persist/integration/react';
+
+// create.render(
+//     <Provider store={store}>
+//         <PersistGate loading={null} persistor={persistor}>
+//             <App />
+//         </PersistGate>
+//     </Provider>
+// )
+
+
+// 2025.09.25 day07의 task8 설명
+
+
+// 2025.09.26 day07 =====================================================
+// import Component14 from './example/day07_250926/Component14';
+// create.render(<Component14/>)
+
+import App from './example/day07_250926/Task9/App';
+import store, { persistor } from './example/day07_250926/Task9/store/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
