@@ -155,3 +155,12 @@
 
         @Log4j2
          log 이력 관련 > practice03 > controller
+
+
+ 250929 =============================
+    Java
+        Logging
+        practice03 이어서
+
+            1) application.properties
+                log 설정

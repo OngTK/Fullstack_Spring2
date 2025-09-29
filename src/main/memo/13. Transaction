@@ -1,0 +1,33 @@
+[ Transaction ]
+    1) 정의 : DB에 대한 여러 연산(SQL)을 하나의 논리적인 작업 단위로 관리하는 것
+    2) 목적 : 신뢰성과 안전성 보장
+        (1) 데이터 무결성 보장
+
+        (2) Transaction의 4대 특징
+        원자성 보장      : 여러 연산이 모두 성공해야만 결과를 반영하고, 하나라도 실패하면 Rollback 함
+        일관성 유지      : 트랜잭션 이후 데이터는 항상 일관된 상태이어야 함
+        독립성/격리성    : 다른 트랜잭션과 영향을 받지 않음
+        지속성          : 트랜잭션이 성공적으로 완료되면 결과는 영구적
+
+    3) 용어
+        - Transaction
+        - commit    : 트랜잭션이 정상 완료
+        - rollback  : 트랜잭션 중 오류발생으로 이전 상태로 되돌림
+        - savepoint : 특정 시점까지의 작업을 임시 저장하여 부분 롤백 가능
+
+    4) Spring(Java)에서 Transaction 적용 방법
+        - 주로 Business = service 로직에서 적용
+
+        (1) @Transactional void method(){}
+
+        (2) @Transactional class Service{}
+
+    5) Rollback 가용 기준
+        * RuntimeException 발생 시 롤백 됨!
+            == 실행예외
+
+        (1) @Transactional(rollbackFor = Exception.class)
+            @Transactional(rollbackFor = "특정 Exception class".class)
+                - 특정 예외 상황에만 rollback 을 수행
+
+    6) 동시성 문제

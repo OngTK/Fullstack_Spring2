@@ -43,3 +43,4 @@ bin/
 
 ### InteliJ ###
 application.properties
+/logs/
