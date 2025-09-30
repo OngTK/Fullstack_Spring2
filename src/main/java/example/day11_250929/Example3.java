@@ -2,6 +2,7 @@ package example.day11_250929;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Example3 {
 
@@ -16,13 +17,14 @@ public class Example3 {
         //      <-> 멤버·일반 메소드 : 객체를 통해 사용 가능한 메소드
         // [ 정석 : 객체명.메소드명() ] vs [ 메소드 레퍼런스 : 객체명 :: 메소드명 ]
 
-        // [1] String 타입을 parseInt로 int 타입으로 바꾸기
+        // [1] static 정적 메소드
+        // String 타입을 parseInt로 int 타입으로 바꾸기
         System.out.println(Integer.parseInt("123"));
 
         Function<String, Integer> func = Integer::parseInt;
         System.out.println( func.apply("1234") );
 
-        // [2]
+        // [2] 일반 메소드
         List<String> names = List.of("배두훈","강형호","조민규","배두훈");
 
         // [2.1] 기존 for 문 (향상 for)
@@ -39,7 +41,22 @@ public class Example3 {
         System.out.println("[2.3]==============");
         names.stream().forEach( System.out :: println );    // 매개변수는 자동으로 인식
     
+        // [3] 생성자 메소드 레퍼런스
+        // 클래스명::new
+        // new : 생성자
+        names.stream().forEach(name -> new Member(name) );
+        names.stream().forEach( Member::new );
+
+        List<Member> newMember = names.stream().map(Member::new).collect(Collectors.toList());
+        System.out.println(newMember);
     
     } // main end
 
+} // class end
+
+class Member {
+    String name;
+
+    // 생성자
+    Member(String name){this.name = name; } 
 } // class end

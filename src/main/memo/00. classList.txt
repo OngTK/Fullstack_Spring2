@@ -169,4 +169,9 @@
     Java
         log · 람다식 txt 정리
 
-        day11 > Example3
+        day11 > Example3 > 메소드 레퍼런스 api
+
+    Java + react
+        java > example > day12
+
+        CorsConfig를 통해서 cors 설정 하는 방법
