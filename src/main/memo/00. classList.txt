@@ -164,3 +164,9 @@
 
             1) application.properties
                 log 설정
+
+ 250930 =============================
+    Java
+        log · 람다식 txt 정리
+
+        day11 > Example3
