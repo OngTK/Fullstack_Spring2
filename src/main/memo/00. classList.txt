@@ -191,3 +191,5 @@
             resources > mappers > XmlMapper.xml
 
         mybatis pk 값 반환처리 방법
+
+        동적 쿼리

@@ -63,4 +63,31 @@ public class XmlController {
         return ResponseEntity.ok(true);
     }
 
+    // [6-1] 한국어가 특정한 점수 이상의 학생 조회
+    // Annotation
+    @GetMapping("/query1")
+    public ResponseEntity<?> query1 (@RequestParam int kor){
+        List<StudentDto> list = xmlMapper.query1(kor);
+        return ResponseEntity.ok(list);
+    }
+
+    // [6-2] XML
+    @GetMapping("/query2")
+    public ResponseEntity<?> query2 (@RequestParam int kor){
+        List<StudentDto> list = xmlMapper.query2(kor);
+        return ResponseEntity.ok(list);
+    }
+
+    // [7] 이름 포함 or 수학 점수 검색
+    @GetMapping("/query3")
+    public ResponseEntity<?> query3 (@RequestParam(required = false) String name,
+                                     @RequestParam(required = false) int math ){
+        System.out.println("name = " + name + ", math = " + math);
+        List<StudentDto> list = xmlMapper.query3(name,math);
+        return ResponseEntity.ok(list);
+    }
+
+    // [8] 복수의 학생을 등록
+//    @PostMapping("")
+
 } // class end
