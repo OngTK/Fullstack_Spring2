@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- XML : 마크업 기반 데이터 저장(설정)/전달/교환(API)을 위한 프로그래밍 언어 -->
+
+
+<!-- XML 파일 내 MyBatis 라이브러리 설정 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 30.//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- xml 과 매핑할 인터페이스 경로 설정 -->
+<mapper namespace="example.day13_251013.XmlMapper"> <!-- mapper 시작 -->
+
+    <!-- [1] 등록-->
+    <!-- id : 추상 메소드 이름 -->
+    <!-- parameterType : 매개변수 타입의 경로 -->
+    <insert id="save" parameterType="example.day13_251013.StudentDto">
+        INSERT INTO student(name, kor, math) values( #{name}, #{kor}, #{math});
+    </insert>
+
+    <!-- [2] 전체조회 -->
+    <!-- resultType : 반환타입 경로   -->
+    <select id="findAll" resultType="example.day13_251013.StudentDto">
+        Select * from student;
+    </select>
+</mapper> <!-- mapper 끝 -->
