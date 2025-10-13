@@ -189,3 +189,5 @@
         application.properties 설정
         MapperXML 작성방법
             resources > mappers > XmlMapper.xml
+
+        mybatis pk 값 반환처리 방법

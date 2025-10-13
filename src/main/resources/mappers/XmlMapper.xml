@@ -12,7 +12,8 @@
     <!-- [1] 등록-->
     <!-- id : 추상 메소드 이름 -->
     <!-- parameterType : 매개변수 타입의 경로 -->
-    <insert id="save" parameterType="example.day13_251013.StudentDto">
+    <insert id="save" parameterType="example.day13_251013.StudentDto"
+    useGeneratedKeys="true" keyProperty="sno">
         INSERT INTO student(name, kor, math) values( #{name}, #{kor}, #{math});
     </insert>
 
@@ -21,4 +22,21 @@
     <select id="findAll" resultType="example.day13_251013.StudentDto">
         Select * from student;
     </select>
+
+    <!-- [3] 개별 조회 -->
+    <select id="find" parameterType="int" resultType="example.day13_251013.StudentDto">
+        select * from student where sno = #{sno};
+    </select>
+
+    <!-- [4] 개별 삭제 -->
+    <delete id="delete" parameterType="int">
+        delete from student where sno = #{sno};
+    </delete>
+
+    <!-- [5] 수정 -->
+    <update id="update" parameterType="example.day13_251013.StudentDto">
+        update student set kor = #{kor}, math = #{math} where sno = #{sno};
+    </update>
+
+
 </mapper> <!-- mapper 끝 -->
