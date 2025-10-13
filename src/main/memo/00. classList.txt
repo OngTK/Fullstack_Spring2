@@ -175,3 +175,13 @@
         java > example > day12
 
         CorsConfig를 통해서 cors 설정 하는 방법
+
+251001 ==============================
+    Teamproject
+
+251013 ==============================
+    Java
+        Mybatis xml
+
+        application.properties
+        Spring 서버 실행 시 SQL 자동 실행하도록 설정하는 방법
