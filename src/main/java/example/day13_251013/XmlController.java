@@ -88,6 +88,10 @@ public class XmlController {
     }
 
     // [8] 복수의 학생을 등록
-//    @PostMapping("")
+    @PostMapping("/saveAll")
+    public ResponseEntity<?> saveAll(@RequestBody List<StudentDto> list){
+        xmlMapper.saveAll(list);
+        return ResponseEntity.ok(true);
+    }
 
 } // class end

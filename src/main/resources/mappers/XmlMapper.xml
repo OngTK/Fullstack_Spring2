@@ -70,7 +70,6 @@
         <foreach collection="list" item="student" separator=",">
             (#{student.name},#{student.kor},#{student.math})
         </foreach>
-
     </insert>
     <!-- collection : 컬렉션 타입 - 주로 list -->
     <!-- item : 반복 변수명-->
