@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- XML : 마크업 기반 데이터 저장(설정)/전달/교환(API)을 위한 프로그래밍 언어 -->
+
+
+<!-- XML 파일 내 MyBatis 라이브러리 설정 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="practice.practice04_250926.BookMapper">
+
+    <!-- [1] 도서 등록   -->
+    <insert id="saveBookInfo" parameterType="practice.practice04_250926.BookDto" useGeneratedKeys="true" keyProperty="id">
+        insert into books(title, stock) values (#{title} , #{stock})
+    </insert>
+
+<!-- [2] 대출 이력 검색   -->
+    <select id="readAllRental" parameterType="practice.practice04_250926.RentalDto"
+            resultType="practice.practice04_250926.RentalDto">
+        select r.*, b.title from rentals r inner join books b on r.book_id = b.id
+        <where>
+            <if test="member != null">
+               and r.member like concat('%' , #{member}, '%')
+            </if>
+            <if test="title != null">
+                and b.title like concat('%' , #{title}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
