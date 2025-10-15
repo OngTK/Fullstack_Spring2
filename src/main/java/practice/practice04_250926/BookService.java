@@ -49,7 +49,7 @@ public class BookService {
         for(BookDto dto : list){
             if(dto.getId() == 0 ){
                 check = false;
-                break;
+                throw new RuntimeException();
             }
         }
 
