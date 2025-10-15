@@ -1,0 +1,37 @@
+[ ALTER ]
+    - 기존 테이블의 구조 변경
+    - 사용법
+        1) 추가
+            ` alter talbe 테이블명 add column 새로운필드명 타입; `
+        2) 타입 수정
+            ` alter table 테이블명 modify column 수정할필드명 타입; `
+        3) 필드명 수정
+            ` alter talbe 테이블명 change column 기존필드명 새로운필드명 타입; `
+        4) 삭제
+            ` alter table 테이블명 drop column 삭제할필드명; `
+        5) PK 제약조건 추가
+            ` alter table 테이블명 add constraint 제약조건명 primary key(pk필드명); `
+        6) FK 제약조건 추가
+            ` alter table 테이블명 add constraint 제약조건명 foreign key(fk필드명) references 참조테이블(KF필드명); `
+        7) 일반 제약조건 추가
+            ` alter table 테이블명 add constraint 제약조건명 제약조건(필드명)`
+        8) 제약조건 삭제
+            ```SQL
+            alter table 테이블명 drop primary key;
+            alter table 테이블명 drop foreign ke 삭제할제약조건명;
+            alter table 테이블명 drop constraint 삭제할제약조건명;
+            ```
+
+[ SHOW ]
+    - 테이블·필드의 정보를 확인
+    - 사용법
+        1) 테이블의 필드 확인
+            ` show columns from 테이블명; `
+        2) 제약조건 확인
+            ` select * from information_schema.table_constraints; `
+
+[ SUBQUERY ]
+    - select 내에 select를 사용하는 방법
+    - 사용법
+        ` select [select절] from [select절] where [select절] `
+    - Join
