@@ -1,4 +1,4 @@
-package practice.practice04_250926;
+package practice.practice04_251014;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

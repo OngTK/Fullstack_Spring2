@@ -6,16 +6,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="practice.practice04_250926.BookMapper">
+<mapper namespace="practice.practice04_251014.BookMapper">
 
     <!-- [1] 도서 등록   -->
-    <insert id="saveBookInfo" parameterType="practice.practice04_250926.BookDto" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveBookInfo" parameterType="practice.practice04_251014.BookDto" useGeneratedKeys="true" keyProperty="id">
         insert into books(title, stock) values (#{title} , #{stock})
     </insert>
 
 <!-- [2] 대출 이력 검색   -->
-    <select id="readAllRental" parameterType="practice.practice04_250926.RentalDto"
-            resultType="practice.practice04_250926.RentalDto">
+    <select id="readAllRental" parameterType="practice.practice04_251014.RentalDto"
+            resultType="practice.practice04_251014.RentalDto">
         select r.*, b.title from rentals r inner join books b on r.book_id = b.id
         <where>
             <if test="member != null">

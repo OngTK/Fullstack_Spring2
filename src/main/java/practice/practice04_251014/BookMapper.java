@@ -1,4 +1,4 @@
-package practice.practice04_250926;
+package practice.practice04_251014;
 
 import org.apache.ibatis.annotations.Mapper;
 
