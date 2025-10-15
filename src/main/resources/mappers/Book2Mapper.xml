@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- XML : 마크업 기반 데이터 저장(설정)/전달/교환(API)을 위한 프로그래밍 언어 -->
+
+
+<!-- XML 파일 내 MyBatis 라이브러리 설정 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="practice.practice05_251015.BookMapper">
+
+    <!-- [1] 책 테이블에 가격 필드 추가-->
+    <update id="createColumn">
+        alter table books add column price int not null default 0;
+    </update>
+
+    <!-- [2] 책 테이블에 책이름 필드 수정   -->
+    <update id="updateTitleAtt">
+        alter table books modify column title longtext;
+    </update>
+
+    <!-- [3] 평균 재고보다 많은 재고를 가진 도서 조회 -->
+    <select id="overAvg" resultType="practice.practice05_251015.BookDto">
+        select * from books where stock >= (select avg(stock) from books);
+    </select>
+
+    <!-- [4] 가장 많이 대출한 도서 조회 -->
+    <select id="bestRentalBook" resultType="practice.practice05_251015.BookDto">
+        select b.*, count(r.book_id) as total_rentals
+            from rentals r join books b on r.book_id = b.id
+            group by b.id, b.title
+            having count(r.book_id) = (
+                select max(rental_count)
+                from (
+                    select count(book_id) as rental_count
+                    from rentals
+                    group by book_id
+                ) as sub
+            );
+    </select>
+
+
+
+
+</mapper>
