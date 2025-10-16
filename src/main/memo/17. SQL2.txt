@@ -35,3 +35,35 @@
     - 사용법
         ` select [select절] from [select절] where [select절] `
     - Join
+
+[ Transaction ]
+    - 정의 : 여러 SQL 작업들을 하나의 단위(묶음)로 처리하여 모두 성공이면 Commit, 하나라도 실패시 Rollback 하는 기능
+    - 목적 : 데이터 무결성 유지와 안정성을 보장하는 개념
+    - 명령어
+        1) 자동 commit 해제
+            ` set auto commit = 0; `
+        2) transaction 시작
+            ` start transaction; `
+        3) commit;      : 저장 성공
+        4) rollback;    : 저장 취소
+        5) 저장 시점·위치 지정
+            ` savepoint 포인트명; `
+        6) 특정 시점으로 rollback
+            ` rollback to 포인트명; `
+
+    VS Java
+        @Transactional
+        메소드 내에 RuntimeException 으로 롤백
+
+[ View ]
+    - 정의 : 실제 데이터를 저장하지 않고, Select query 결과를 이름으로 저장하는 가상의 테이블
+    - 목적 : SQL문의 재사용, 보안, 일부 뷰에서는 수정 불가능
+    - 명령어
+        1) view 생성
+            ` create [ or replace ] view 뷰명 as 쿼리문; `
+        2) view 수정
+            ` alter view 뷰명 as 새로운쿼리; `
+        3) view 삭제
+            ` drop view if exists 뷰명; `
+        4) view 목록 확인
+            ` show full tables where table_type = 'view'; `
