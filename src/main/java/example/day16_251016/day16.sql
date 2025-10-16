@@ -19,6 +19,7 @@ create user 'dev2'@'%' identified by 'abcd'; -- 해당 아이디가 어느 도�
 
 -- 모든 권한 부여
 -- GRANT ALL privileges ON DB명.테이블 TO '계정명'@'도메인';
+-- GRANT [all select insert 등 기능] ON DB명.테이블 TO '계정명'@'도메인';
 
 GRANT ALL privileges ON SPRINGWEB2.* TO 'dev1'@'localhost';
 
@@ -41,3 +42,9 @@ alter user 'dev2'@'%' identified by '1234';
 -- [5] 계정 삭제
 -- drop user '계정명'@'도메인';
 drop user 'dev2'@'%';
+
+-- 3교시-------------------------------
+
+create user 'dev3'@'localhost' identified by '1234';
+create or replace view student_view as select * from student;
+grant select on springweb2.student_view to 'dev3'@'localhost';
