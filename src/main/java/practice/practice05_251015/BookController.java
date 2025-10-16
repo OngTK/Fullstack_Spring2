@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/book")
@@ -15,41 +16,71 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-    
+
     // [1] 책 테이블에 가격 필드 추가
     @GetMapping("/createColumn")
-    public ResponseEntity<?> createColumn(){
+    public ResponseEntity<?> createColumn() {
         int result = bookService.createColumn();
-        if(result == 0){
+        if (result == 0) {
             return ResponseEntity.ok(result);
-        }else {
+        } else {
             return ResponseEntity.status(460).body(result);
         }
     } // func end
-    
+
     // [2] 책 테이블에 책이름 필드 수정
     @GetMapping("/updateTitleAtt")
-    public ResponseEntity<?> updateTitleAtt(){
+    public ResponseEntity<?> updateTitleAtt() {
         int result = bookService.updateTitleAtt();
-        if(result >= 0){
+        if (result >= 0) {
             return ResponseEntity.ok(result);
-        }else {
+        } else {
             return ResponseEntity.status(460).body(result);
         }
     } // func end
-    
+
     // [3] 평균 재고보다 많은 재고를 가진 도서 조회
     @GetMapping("/overAvg")
-    public ResponseEntity<?> overAvg(){
+    public ResponseEntity<?> overAvg() {
         List<BookDto> result = bookService.overAvg();
         return ResponseEntity.ok(result);
     } // func end
-    
+
     // [4] 가장 많이 대출한 도서 조회
     @GetMapping("/bestRentalBook")
-    public ResponseEntity<?> bestRentalBook(){
+    public ResponseEntity<?> bestRentalBook() {
         BookDto result = bookService.bestRentalBook();
         return ResponseEntity.ok(result);
     } // func end
-    
+
+    // 2025.10.16 =======================================
+
+    // [1] 대출 기록 상세 뷰 생성
+    @GetMapping("/createDetailView")
+    public ResponseEntity<?> createDetailView() {
+        int result = bookService.createDetailView();
+        return ResponseEntity.ok(result);
+    } // func end
+
+    // [2] 대출 기록 상세 뷰 조회
+    @GetMapping("/readDetailRental")
+    public ResponseEntity<?> readDetailRental() {
+        List<Map<String, Object>> result = bookService.readDetailRental();
+        return ResponseEntity.ok(result);
+    } // func end
+
+    // [3] 평균 재고보다 많은 재고를 가진 도서 뷰 생성
+    @GetMapping("/createOverAvgStock")
+    public ResponseEntity<?> createOverAvgStock() {
+        int result = bookService.createOverAvgStock();
+        return ResponseEntity.ok(result);
+    } // fund end
+
+    // [4] 평균 재고보다 많은 도서를 가진 도서 조회
+    @GetMapping("/readOverAvgStock")
+    public ResponseEntity<?> readOverAvgStock(){
+        List<Map<String, Object>> result = bookService.readOverAvgStock();
+        return ResponseEntity.ok(result);
+    } // func end
+
 } // class end

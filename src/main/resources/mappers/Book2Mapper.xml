@@ -26,19 +26,39 @@
     <!-- [4] 가장 많이 대출한 도서 조회 -->
     <select id="bestRentalBook" resultType="practice.practice05_251015.BookDto">
         select b.*, count(r.book_id) as total_rentals
-            from rentals r join books b on r.book_id = b.id
-            group by b.id, b.title
-            having count(r.book_id) = (
-                select max(rental_count)
-                from (
-                    select count(book_id) as rental_count
-                    from rentals
-                    group by book_id
-                ) as sub
-            );
+        from rentals r join books b on r.book_id = b.id
+        group by b.id, b.title
+        having count(r.book_id) = (
+        select max(rental_count)
+        from (
+        select count(book_id) as rental_count
+        from rentals
+        group by book_id
+        ) as sub
+        );
     </select>
 
+    <!-- 2025.10.16 ======================================= -->
 
+    <!-- [1] 대출 기록 상세 뷰 생성   -->
+    <update id="createDetailView">
+        create view detail_rental_view as (select b.title, b.stock, r.* from books b inner join rentals r on b.id =
+        r.book_id);
+    </update>
 
+    <!-- [2] 대출 기록 상세 뷰 조회 -->
+    <select id="readDetailRental" resultType="map">
+        select * from detail_rental_view;
+    </select>
+
+    <!-- // [3] 평균 재고보다 많은 재고를 가진 도서 뷰 생성   -->
+    <update id="createOverAvgStock">
+        create view over_avg_stock as (select * from books where stock >= (select avg(stock) from books));
+    </update>
+
+    <!-- [4] 평균 재고보다 많은 도서를 가진 도서 조회 -->
+    <select id="readOverAvgStock" resultType="map">
+        select * from over_avg_stock;
+    </select>
 
 </mapper>

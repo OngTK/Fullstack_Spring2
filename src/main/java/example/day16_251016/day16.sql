@@ -19,6 +19,7 @@ create user 'dev2'@'%' identified by 'abcd'; -- 해당 아이디가 어느 도�
 
 -- 모든 권한 부여
 -- GRANT ALL privileges ON DB명.테이블 TO '계정명'@'도메인';
+-- 특정 권한 확인
 -- GRANT [all select insert 등 기능] ON DB명.테이블 TO '계정명'@'도메인';
 
 GRANT ALL privileges ON SPRINGWEB2.* TO 'dev1'@'localhost';
@@ -45,6 +46,10 @@ drop user 'dev2'@'%';
 
 -- 3교시-------------------------------
 
+-- 새로운 계정을 만들고 view에 대한 조회 권한 부여하기
 create user 'dev3'@'localhost' identified by '1234';
 create or replace view student_view as select * from student;
 grant select on springweb2.student_view to 'dev3'@'localhost';
+
+-- DB 내 전체 계정 목록 확인
+select * from mysql.user;

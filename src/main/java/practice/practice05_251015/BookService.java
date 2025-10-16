@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.print.Book;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,20 @@ public class BookService {
     public BookDto bestRentalBook(){
         return bookMapper.bestRentalBook();
     }
+
+    // 2025.10.16 =======================================
+
+    // [1] 대출 기록 상세 뷰 생성
+    public int createDetailView(){ return bookMapper.createDetailView();}
+
+    // [2] 대출 기록 상세 뷰 조회
+    public List<Map<String, Object>> readDetailRental(){return bookMapper.readDetailRental();}
+
+    // [3] 평균 재고보다 많은 재고를 가진 도서 뷰 생성
+    public int createOverAvgStock(){ return bookMapper.createOverAvgStock();}
+
+    // [4] 평균 재고보다 많은 도서를 가진 도서 조회
+    public List<Map<String, Object>> readOverAvgStock() {return bookMapper.readOverAvgStock();}
+
 
 } // class end
