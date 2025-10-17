@@ -67,3 +67,55 @@
             ` drop view if exists 뷰명; `
         4) view 목록 확인
             ` show full tables where table_type = 'view'; `
+
+[ DCL ]
+    1) 정의
+        : DB 사용자 계정 생성, 권한 부여, 권한 회수 등을 관리하는 명령어
+    2) 사용처
+        - 개발자들에게 DB 접근 권한 관리하므로 보안 관리
+        - 계정마다 DB 분리
+    3) 주요 명령어
+        (1) 새로운 계정 생성
+            ` create user '계정명'@'허용도메인' identified by '비밀번호'; `
+            * 허용 도메인
+                : localhost - 로컬환경
+                : % - 모든 IP
+                : 특정 IP or 특정 도메인
+        (2) 권한 부여
+            ` grant 사용권한 on DB명.[tb명 or view명] to '계정명'@'허용도메인'; `
+            * 사용 권한
+                all privileges / insert / select / update /  delete / create 등등
+        (3) 권한 회수
+            ` revoke 사용권한 on DB명.[tb명 or view명] from '계정명'@'허용도메인'; `
+        (4) 비밀번호 수정
+            ` alter user '계정명'@'허용도메인' identified by '비밀번호'; `
+        (5) 계정 삭제
+            ` drop user '계정명'@'허용도메인'; `
+        (6) 기타
+            - 특정 계정의 권한 목록 조회
+                ` show gran for '계정명'@'허용도메인'; `
+            - 전체 계정의 권한 조회
+                ` select * from mysql.user;`
+
+[ INDEX ]
+    1) 정의
+        : 데이터를 특정 필드를 기준으로 검색을 빠르게 하기 위한 색인
+    2) 목적
+        : select, join, order by 등 속도 향상, 대용량 데이터 처리
+        : 단, insert / update 등의 갱신시 속도가 느릴 수 있음
+    3) 주요 명령어
+        (1) 테이블의 모든 인덱스 목록 확인
+            ` show index from tb명; `
+            * pk는 기본적으로 index를 가짐
+        (2) 단일 인덱스 생성
+            ` create index 인덱스명 on 테이블명(필드명); `
+        (3) 복합 인덱스 생성
+            ` create index 인덱스명 on 테이블명(필드명1,필드명2); `
+        (4) 인덱스 삭제
+            ` drop index 인덱스명 on tb명; `
+        (5) 성능 확인
+            ` explain analyze 쿼리문; `
+        (6) NLP·자연어 인덱스
+            ` create fulltext index 인덱스명 on 테이블명(필드명); `
+            ` select * from 테이블명 where match(필드명) against ('검색어'); `
+            * 자연어 인덱스는 완전 일치해야 하므로, 일부 포함 검색은 불가

@@ -1,0 +1,37 @@
+[ 본체 ]
+    - 메모리(RAM)      : 휘발성 메모리, 주기억장치로써 실행중인 상태에서만 메모리 저장
+    - SSD/HDD(ROM)    : 비휘발성 메모리, 보조기억장치이면서 비실행중인 상태에서 메모리 저장
+    * 보조기억 장치는 용량잉 크고, 주 기억장치는 속도가 빠름
+
+[ 개발 학습상 주요 저장 ]
+    - 저장하고자 하는 데이터의 사용처를 6하원칙에 맞추어 생각하기
+    - 1 개월차 : 크롬의 로컬스토리지 / 세션저장소     : 클라이언트 환경에 저장 - 보안에 취약
+    - 2 개월차 : DB                               : 영구저장, 자바 서버 외 DB서버에 저장
+    - 3 개월차 : 톰캣(Spring) 세샨                 : 자바 서버에 저장, 서버 과부하, 보안에 안전, 로그인 정보
+    - 5 개월차 : 레디스                            : 임시저장(캐싱), 다중 서버 - DB 조회 결과 임시 저장, 실시간 정보
+
+[ Redis ]
+    1) 정의
+        : 인메모리 기반의 데이터 저장소
+    2) 목적
+        : 관계형 DB가 보조기억장치이므로 빠른 메모리 처리가 필용·사용할 때,
+            MySQL/ORCLE : SQL - 관계형DB
+            REDIS : NOSQL - 객체지향
+    3) 구조
+        : Key-Value, Map/JSON/DTO 구조와 유사
+    4) 캐싱
+        : select 할 때 마다 DB에 접근·요청에 따라 속도가 느리거나 성능 저하가 발생할 수 있으므로
+            한 번 select 한 결과를 캐싱
+    5) 설치
+        (1) Spring 내장 Redis 인메모리 - 안함
+        (2) Redis 설치형
+            - 윈도우/로컬 : https://github.com/redis-windows/redis-windows/releases?utm_source=chatgpt.com
+            - Assets 에서 버전 선택
+                : Redis-8.2.2-Windows-x64-msys2-with-Service.zip : 백그라운드 지원
+                : Redis-8.2.2-Windows-x64-msys2.zip             : 직접 실행 - 강의 기준
+            - 압축해제 > 레디스 폴더 내에 redis-server.exe 실행
+                - 끄면 종료 = 서버 off = 인메모리/휘발성이므로 저장된 모든 정보가 사라짐
+                - Redis port : 6379
+
+            - Spring <> Redis 연동 - build.gradle 주입
+                `implementation 'org.springframework.boot:spring-boot-starter-data-redis'`
