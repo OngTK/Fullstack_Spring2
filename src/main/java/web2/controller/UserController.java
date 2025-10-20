@@ -117,7 +117,7 @@ public class UserController {
         cookie.setPath("/");
         cookie.setMaxAge(0); // 즉시 실행 = 즉시 null 처리 = 즉시 삭제
 
-        response.addCookie(cookie); // 동일한 쿠키명이 있다면 덮어쓰끼!
+        response.addCookie(cookie); // 동일한 쿠키명이 있다면 덮어쓰기!
         return ResponseEntity.ok(true);
     }// func end
 
