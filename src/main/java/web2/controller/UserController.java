@@ -70,7 +70,7 @@ public class UserController {
             cookie.setSecure( false );
             // [2.2.0] 기타 등등
             cookie.setPath("/");    // 쿠키에 접근할 수 있는 경로
-            // cookie.setMaxAge(60);   // 쿠키에 유효기간, 단위 sec
+            cookie.setMaxAge(60 * 60);   // 쿠키에 유효기간, 단위 sec
 
             // [2.2.4] cookie 객체를 클라이언트에게 반환
             response.addCookie(cookie);
