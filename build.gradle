@@ -58,6 +58,9 @@ dependencies {
 
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // Bcrypt 암호화
+    implementation 'org.springframework.security:spring-security-crypto:6.4.4'
 }
 
 tasks.named('test') {

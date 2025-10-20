@@ -36,3 +36,60 @@
 
             - Spring <> Redis 연동 - build.gradle 주입
                 `implementation 'org.springframework.boot:spring-boot-starter-data-redis'`
+        (3) Application.properties 설정
+            ```
+                # [6] redis 서버 연동
+                spring.data.redis.host=localhost
+                spring.data.redis.port=6379
+            ```
+
+    6) 주 사용법
+        (1) 레디스 템플릿 객체를 생성
+            ` private final StringRedisTemplate stringRedisTemplate; `  : 문자열 타입
+            ` private final RedisTemplate redisTemplate; `              : 그외 타입
+            >> ` private final RedisTemplate<String, Object> redisTemplate; `
+            ** RedisTemplate 사용할 경우, 레디스에 저장할 타입 설정 필요
+                ```java
+                    @Configuration
+                    public class RedisConfig {
+                        // RedisTemplate 관련 설정 메소드
+                        @Bean
+                        public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory connectionFactory){
+                            // [1.1] Redis 템플릿 객체 생성
+                            // Redis 형식을 Map 타입으로 사용하기 위한 설정
+                            RedisTemplate<String, Object> template = new RedisTemplate<>();
+                            // [1.2] template 를 저장소 factory 에 저장
+                            template.setConnectionFactory( connectionFactory );
+                            // 직렬화 : 레디스에 저장된 데이터를 자바 타입으로 변환하는 과정
+                            // [1.3] template 의 key 값을 String 타입으로 직렬화
+                            template.setKeySerializer(new StringRedisSerializer());
+                            // [1.4] template 의 value 값을 JSON/DTO 타입으로 직렬화
+                            template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+                            return template;
+                        } // func end
+                    } // class end
+                ```
+        (2) 레디스에 데이터를 저장하는 방법
+            1] redisTemplate.opsForValue().set(key, value);
+            2] redisTemplate.opsForValue().set(key, value, TTL);
+                * TTL·유효기간 : 지정한 기간, 시간이 지나면 자동으로 삭제
+                    Duration.of단위(숫자)
+                    `Duration.ofSecond(10)` 유효기간 10초
+                * key는 중복 불가!
+
+        (3) 레디스에 데이터를 호출하는 방법
+            1] 특정 key의 value 반환
+                ` Object value = redisTemplate.opsForValue().get(key); `
+            2] 모든 key 반환
+                ` Set<String> keys = redisTemplate.keys("*"); `
+            3] 특정 패턴의 key 반환
+                ` Set<String> keys - redisTemplate.keys("패턴"); `
+                * 관례적으로 redis의 key 명칭은 `의미상단어:식별번호`
+                    ` student:1, student:2, student:3, ... `
+                    ` Set<String> keys - redisTemplate.keys("student:"); `
+
+        (4) 레디스 데이터를 삭제하는 방법
+            1] 특정 엔트리 삭제
+                ` boolean result = redisTemplate.delete("key);"; `
+        (5) 레디스 key 존재 여부 확인 방법
+            ` boonlean result = redisTemplate.hasKey(Key); `
