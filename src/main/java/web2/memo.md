@@ -1,4 +1,6 @@
 # 2025.10.20 
+
+https://docs.google.com/spreadsheets/d/1AAli0Zi_GWo2G4y83B9dWc0CgpluyUcxIAHhjl-l3lc/edit?usp=sharing
 ---
 
 ## [1] 회원가입
@@ -29,3 +31,8 @@ POST
 ## [3] 내정보조회
 /api/user/info
 GET
+
+# 2025.10.21
+---
+
+##
