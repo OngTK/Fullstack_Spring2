@@ -71,3 +71,15 @@ Get
 Get
 
 user 에 토큰 기능 주입
+
+## Spring security
+---
+
+- 주의 Spring security 로 인해서 로그인/API 호출 등으 모두 막힘!!!
+
+- gradle 추가 후 실행하면 
+- console에 password 가 발급됨
+- id : user / pwd : 발급된 pwd
+
+### 1. 커스텀
+#### 1) 차단된 모든 요청에 대한 제약 설정
