@@ -67,5 +67,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authToken);
         }
 
+        // [3] 다른 필터에서 해당하는 토큰필터를 호출할 수 있도록 함
+        filterChain.doFilter( request, response ) ;
+
     } // func end
 } // class end

@@ -20,11 +20,11 @@ public class SecurityConfig {
     * - 따라서 필요없는 필터에 대한 종료 필요
     */
 
-    // 개발자가 만든 토큰을 세큐리티 토큰에 통합한 class
+    // [1] 개발자가 만든 토큰을 세큐리티 토큰에 통합한 class
     private final JwtAuthFilter jwtAuthFilter;
 
     /**
-     * HTTP 관련 필터에 대한 커스텀
+     * [2] HTTP 관련 필터에 대한 커스텀
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -56,8 +56,12 @@ public class SecurityConfig {
         // [3-2] 개발자가 만든 토큰 대체
         // http.addFilterBefore( 내가만든토큰객체필터, UsernamePasswordAuthenticationToken.class )
         http.addFilterBefore( jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-        
+
+
         return http.build(); // 커스텀 완료 객체
-    };
+    } // func end
+
+
+
 
 } // class end
