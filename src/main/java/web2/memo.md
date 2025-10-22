@@ -69,3 +69,5 @@ Get
 #### 토큰 추출
 /api/jwt/payload?token=
 Get
+
+user 에 토큰 기능 주입

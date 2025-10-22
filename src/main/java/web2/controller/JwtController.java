@@ -21,7 +21,7 @@ public class JwtController {
      */
     @GetMapping("/create")
     public ResponseEntity<?> createToken(@RequestParam String data){
-        String token = jwtService.createToken(data);
+        String token = jwtService.createTokenSample(data);
         return ResponseEntity.ok(token);
     } // func end
 
@@ -32,7 +32,7 @@ public class JwtController {
     @GetMapping("/check")
     public ResponseEntity<?> checkToken(@RequestParam String token){
         System.out.println("token = " + token);
-        boolean result = jwtService.checkToken(token);
+        boolean result = jwtService.checkTokenSample(token);
         return ResponseEntity.ok(result);
     } // func end
 
@@ -44,7 +44,7 @@ public class JwtController {
     public ResponseEntity<?> payloadToken(@RequestParam String token){
         System.out.println("token = " + token);
 
-        String value = jwtService.payloadToken(token);
+        String value = jwtService.payloadTokenSample(token);
         return ResponseEntity.ok(value);
     };
 

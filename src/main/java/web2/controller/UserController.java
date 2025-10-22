@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web2.model.dto.UserDto;
+import web2.service.JwtService;
 import web2.service.UserService;
 
 @RestController
@@ -15,6 +16,7 @@ import web2.service.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
     /**
      * [1] 회원가입
@@ -59,7 +61,10 @@ public class UserController {
 
             // Cookie cookie = new Cookie("쿠키명", 값);
             // [2.2.1] Cookie 객체 생성
-            Cookie cookie = new Cookie("loginUser", result.getUid() );
+            // [ 20025.10.22 ] >> cookie에 저장되는 result.getUid()을 토큰 처리함
+            // Cookie cookie = new Cookie("loginUser", result.getUid() );
+            Cookie cookie = new Cookie("loginUser", jwtService.createToken(result.getUid(), result.getUrole()));
+
             // [2.2.2] client 측에서 cookie 노출·탈취 방지 = 민감정보 보호
             // 민감정보가 아니라면 setHttpOnly를 굳이 하지 않아도 ㄱㅊ
             cookie.setHttpOnly( true ); // 무조건 HTTP 내에서만 쿠키 조회 가능, JS 에서는 쿠키에 접근 불가
@@ -90,11 +95,20 @@ public class UserController {
             for(Cookie cookie : cookies){
                 // 현재의 cookie의 이름이 loginUser 라면
                 if(cookie.getName().equals("loginUser") ) {
-                    String uid = cookie.getValue(); // 쿠키의 저장된 값 반환 : uid
+                    // [ 20025.10.22 ] >> 쿠키가 아닌 token에서 uid와 urole을 반환
+                    // String uid = cookie.getValue(); // 쿠키의 저장된 값 반환 : uid
+                    // 쿠키에서 토큰 꺼내기
+                    String token = cookie.getValue();
+                    // 토근 검사
+                    boolean checked = jwtService.checkToken(token);
+                    if(checked){
+                        String uid = jwtService.getUid(token);
 
-                    // [3.3] service의 내 정보 조회 메소드 실행
-                    UserDto result = userService.myInfo(uid);
-                    return ResponseEntity.ok(result);
+                        // [3.3] service의 내 정보 조회 메소드 실행
+                        UserDto result = userService.myInfo(uid);
+                        return ResponseEntity.ok(result);
+                    }
+                    return ResponseEntity.ok(null); // 쿠키는 있지만 토큰은 없음
                 }
             }
         }
