@@ -1,7 +1,9 @@
 # 2025.10.20 
+---
+## User - 쿠키처리, Bcrypt
 
 https://docs.google.com/spreadsheets/d/1AAli0Zi_GWo2G4y83B9dWc0CgpluyUcxIAHhjl-l3lc/edit?usp=sharing
----
+
 
 ## [1] 회원가입
 /api/user/signUp
@@ -34,5 +36,36 @@ GET
 
 # 2025.10.21
 ---
+X
 
-##
+
+# 2025.10.22
+---
+https://docs.google.com/spreadsheets/d/1BULalFBZN75Lg-2BD8crZeYcHv2bk3iWp39y78nFL8Q/edit?usp=sharing
+
+## JWT 
+
+### 정의
+- JSON Web Token
+- 웹어서 자바스크립트 기반의 특정한 데이터를 대신하는 징표
+- 특정한 데이터를 직접적으로 보여주지 않고 토큰을 대신 보여줌
+
+- 같은 데이터에 대해 서로 다른 토큰이 발생하도록 하는 알고리즘 추가 필요
+- SHA-256 알고리즘을 사용하여 비밀키(알고리즘)를 32글자 이상으로 생성해야 함
+
+### build.gradle에 dependencies 추가
+```gradle
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+```
+
+#### 토큰 생성 test
+/api/jwt/create?data="사과"
+Get
+#### 토큰 확인
+/api/jwt/check?token=
+Get
+#### 토큰 추출
+/api/jwt/payload?token=
+Get
