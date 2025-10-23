@@ -83,4 +83,27 @@ public class UserService {
         return result;
     } // func end
 
+    /**
+     * [4] Oauth 회원에 대한 회원가입
+     * @since 2025.10.23
+     */
+    public UserDto oauth2UserSignup(String uid, String name){
+        // [4.1] 기존 회원인지 확인
+        UserDto userDto = userMapper.login(uid);
+
+        if( userDto == null ){ // 기존 회원정보 없음
+            // DTO 구성
+            UserDto oauthUser = UserDto
+                    .builder()
+                    .uid(uid)
+                    .uname(name)
+                    .upwd("oauth")     //password 가 없는 회원 = oauth 회원 // 타사의 비밀번호를 확인할수도 처리할 수도 없음
+                    .urole("USER")
+                    .build();
+            userMapper.signUp(oauthUser);
+            return oauthUser;
+        }
+        return null;
+    } // func end
+
 } // class end

@@ -1,8 +1,14 @@
 package web2.model.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     private int uno;             // 회원번호
     private String uid;          // 아이디
