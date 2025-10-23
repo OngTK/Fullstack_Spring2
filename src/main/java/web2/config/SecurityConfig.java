@@ -22,6 +22,7 @@ public class SecurityConfig {
 
     // [1] 개발자가 만든 토큰을 세큐리티 토큰에 통합한 class
     private final JwtAuthFilter jwtAuthFilter;
+    private final Oauth2SuccessHandler oauth2SuccessHandler;
 
     /**
      * [2] HTTP 관련 필터에 대한 커스텀
@@ -58,10 +59,16 @@ public class SecurityConfig {
         http.addFilterBefore( jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 
+        // 2025.10.23 ===============================================================
+        // [4] Oauth2 로그인 필터 사용 설정 => 소셜로그인 연결 용
+        // http.oauth2Login( 매개변수 -> 매개변수.successHandler(로그인 성공 시 특정 클래스로 이동) );
+        http.oauth2Login(  o ->
+                o.loginPage("/oauth2/authorization/google")  // 현재 서버의 로그인페이지가 아닌 타사 로그인페이지를 사용
+                .successHandler(oauth2SuccessHandler)        // 타사 로그인 페이지에서 로그인 성공시 반환되는 클래스 정의
+        );
+
+        // 반환
         return http.build(); // 커스텀 완료 객체
     } // func end
-
-
-
 
 } // class end

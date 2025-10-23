@@ -80,3 +80,12 @@ user 에 토큰 기능 주입
 - gradle 추가 후 실행하면 
 - console에 password 가 발급됨
 - id : user / pwd : 발급된 pwd
+
+# 2025.10.23
+---
+https://docs.google.com/spreadsheets/d/1BULalFBZN75Lg-2BD8crZeYcHv2bk3iWp39y78nFL8Q/edit?usp=sharing
+
+## 소셜 로그인
+
+- 카카오, 네이버 : 개인정보 포함 - 사업자번호 인증필요 > 실습 어려움
+- 구글, 페이스북 : 개인정보 미포함

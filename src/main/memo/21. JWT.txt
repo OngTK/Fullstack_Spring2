@@ -1,0 +1,112 @@
+인증 : 사용자가 누구인지 확인하는 과정
+인가 : 인증된 사용자가 접근 권한을 확인하는 과정
+
+방법
+    1) 세션 : web1, Spring Security
+    2) 쿠키 : web2, 부가적인 보안 (+JWT)
+
+[ JWT ]
+    1. 정의
+        : JSON 형식의 데이터를 안전하게 사용하기 위한 토큰 기반의 인증 방식
+    2. 목적
+        : 주로 web/app에서 인증과 권한 부여/확인 사용
+    3. 장점
+        : HTTP 지원 (헤더 정보에 토큰 정보를 담을 수 있음)
+        : 보안 : 인증(서명)된 토큰을 중간 공격(해킹) 방지
+            - 알고리즘 HS256 사용
+        : 무상태 : 서버가 직접 관리하지 않고 클라이언트에서의 확장성이 좋음
+    4. 형태 :
+        ` 헤더.페이로드.서명 `
+        1) 헤더 : 알고리즘 정보, JWT 타입
+        2) 페이로드 : 실제 정보(클레임) 값, 발급시간
+        3) 서명 : 헤더와 페이로드를 서명하는 알고리즘(비밀키 사용)
+            * 비밀키 : 개발자가 임의로 생성한 키
+    5. 확장
+        1) + 쿠키     : 클라이언트 저장
+        2) + 레디스    : NoSQL 서버 저장, 서로 다른 서버 간의 토큰 공유 가능
+
+    6. 사용법
+        1) 설치 - gradle
+        ```
+            implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+            runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+            runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+        ```
+
+        2) 비밀키 생성
+        ```java
+            @Service
+            @RequiredArgsConstructor
+            public class JwtService {
+                // [1.2] SHA-256 알고리즘을 사용한 비밀키 / 32글자 이상
+                // 같은 데이터에 대해 서로 다른 토큰이 발생하도록 하는 알고리즘 추가 필요
+                private final String secretSample = "12345678901234567890123456789012";  // 난수의 경우 까먹을 경우가 있으므로 키를 직접 생성하는 것을 권장
+                private final Key secretKeySample = Keys.hmacShaKeyFor(secretSample.getBytes(StandardCharsets.UTF_8));      // StandardCharsets.UTF_8 : 한글의 경우 필수
+            }
+        ```
+
+        3) 토큰
+            (1) 토큰 생성
+                ```java
+                    public String createTokenSample(String data){
+                        // [1-1] 토큰 생성 : Jwt 라이브러리 사용
+                        String Token = Jwts.builder()
+                                // .claim("key", value) : 토큰에 넣을 데이터를 대입
+                                .claim("key", data)
+                                // .setIssuedAt( 토큰 발급 날짜/시간) : 토큰 생성 시간
+                                .setIssuedAt(new Date())
+                                // .sexExpiration( 토큰 만료 시간 )
+                                // 단위 milli-sec // 1000 = 1sec / 1000 * 60 = 60초 = 1분
+                                .setExpiration( new Date(System.currentTimeMillis() + 1000 * 30 )  )
+                                //[1-3] 알고리즘을 이용한 토큰 HS256 서명
+                                .signWith( secretKeySample, SignatureAlgorithm.HS256 )
+                                // 닫기
+                                .compact();
+                        return Token;
+                    } // func end
+                ```
+            (2) 토큰 검증·확인
+                ```java
+                    public boolean checkTokenSample(String token){
+                        try {
+                            Jwts.parser()
+                                    // 서명 검증을 위한 비밀키 대입
+                                    .setSigningKey(secretKeySample)
+                                    // 닫기 (비밀키 확인)
+                                    .build()
+                                    // 검증할 토큰 대입
+                                    .parseClaimsJws(token);
+                            return true;
+                        } catch (JwtException e){
+                            System.out.println("토큰없음");
+                            return false;
+                        }
+                    } // func end
+                ```
+            (3) 토큰 추출·호출
+                ```java
+                    public String payloadTokenSample(String token){
+                        try{
+                            Claims claims = Jwts.parser()
+                                    .setSigningKey(secretKeySample)
+                                    .build()
+                                    .parseClaimsJws(token)
+                                    .getBody();                  // 검증 후 클레임(내용물) 반환
+                            System.out.println("claims = " + claims);
+                            String value = claims.get("key", String.class);
+                            return value;
+                        } catch (Exception e) {
+                            return null;
+                        }
+                    } // func end
+                ```
+
+                (3-2) 토큰에서 특정 값을 추출하는 func
+                    ``` java
+                        public String getUid(String token){
+                            return getClaims(token).get("uid", String.class);
+                        }
+                        public String getUrole(String token){
+                            return getClaims(token).get("urole", String.class);
+                        }
+                    ```
