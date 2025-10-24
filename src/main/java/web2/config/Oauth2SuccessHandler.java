@@ -82,8 +82,8 @@ public class Oauth2SuccessHandler implements AuthenticationSuccessHandler {
         response.addCookie(cookie);
 
         // 로그인 성공시 이동할 경로(front 경로)
-        // response.sendRedirect(http://localhost:5173/)
-        response.sendRedirect("/"); // 임시로 자바 메인 경로 localhost:8080
+         response.sendRedirect("http://localhost:5173/");
+        // response.sendRedirect("/"); // 임시로 자바 메인 경로 localhost:8080
 
     } // func end
 
