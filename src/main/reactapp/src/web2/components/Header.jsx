@@ -39,7 +39,7 @@ export default function Header(props) {
                     user ? 로그인상태 : 비로그인 상태
                 */}
                 {user ? <>
-                    <span>유재석님</span>
+                    <span>{user.uname}</span>
                     <button onClick={getLogout}>로그아웃</button>
                     <Link to="/user/info">마이페이지</Link>
                     {/* 로그인 상태면서 관리자인 경우 */}

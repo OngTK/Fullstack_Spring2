@@ -32,7 +32,7 @@ export default function Login() {
             비밀번호 :
             <input value={upwd} onChange={(e) => setUpwd(e.target.value)} type="password" />
             <br />
-            <button type="button" onClick={postLogin}>로그임</button>
+            <button type="button" onClick={postLogin}>로그인</button>
 
             <br />
             <a href="http://localhost:8080/oauth2/authorization/google">구글 로그인</a>
