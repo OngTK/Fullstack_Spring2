@@ -97,7 +97,7 @@ public class UserService {
                     .builder()
                     .uid(uid)
                     .uname(name)
-                    .upwd("oauth")     //password 가 없는 회원 = oauth 회원 // 타사의 비밀번호를 확인할수도 처리할 수도 없음
+                    .upwd("oauth")     // password 가 없는 회원 = oauth 회원 // 타사의 비밀번호를 확인할수도 처리할 수도 없음
                     .urole("USER")
                     .build();
             userMapper.signUp(oauthUser);

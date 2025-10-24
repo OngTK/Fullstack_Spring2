@@ -10,6 +10,9 @@ import web2.model.dto.UserDto;
 import web2.service.JwtService;
 import web2.service.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -132,5 +135,22 @@ public class UserController {
         return ResponseEntity.ok(true);
     }// func end
 
+    /**
+     * [5] 권한을 반환
+     * @since 2025.10.24
+     */
+    @GetMapping("/check")
+    public ResponseEntity<?> checkToken(@CookieValue(value="loginUser", required = false) String token) {
+        Map<String, Object> map = new HashMap<>();
+        if( token != null & jwtService.checkToken(token) ){
+            String urole =  jwtService.getUrole(token);
+            map.put("isAuth", true);
+            map.put("urole", urole);
+            return ResponseEntity.ok(map);
+        } else {
+            map.put("isAuth", false);
+            return ResponseEntity.status(403).body(map);
+        }
+    } // func end
 
 } // class end

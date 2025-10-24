@@ -161,5 +161,9 @@ const create = createRoot(root);
 // )
 
 // 2025.09.30 day08 =====================================================
-import Component15 from './example/day08_250930/Component15';
-create.render(<Component15/>)
+// import Component15 from './example/day08_250930/Component15';
+// create.render(<Component15/>)
+
+// 2025.10.24 Web2  =====================================================
+import App from './web2/App';
+create.render(<App/>)

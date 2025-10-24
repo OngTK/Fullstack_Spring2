@@ -3,6 +3,7 @@ package web2.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -66,6 +67,10 @@ public class SecurityConfig {
                 o.loginPage("/oauth2/authorization/google")  // 현재 서버의 로그인페이지가 아닌 타사 로그인페이지를 사용
                 .successHandler(oauth2SuccessHandler)        // 타사 로그인 페이지에서 로그인 성공시 반환되는 클래스 정의
         );
+
+        // 2025.10.24 ===============================================================
+        // [5] 시큐리티의 CORS 정책을 우리가 설정한 CorsConfig를 사용함을 선언
+        http.cors(Customizer.withDefaults());
 
         // 반환
         return http.build(); // 커스텀 완료 객체

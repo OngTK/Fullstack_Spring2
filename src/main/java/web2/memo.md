@@ -89,3 +89,7 @@ https://docs.google.com/spreadsheets/d/1BULalFBZN75Lg-2BD8crZeYcHv2bk3iWp39y78nF
 
 - 카카오, 네이버 : 개인정보 포함 - 사업자번호 인증필요 > 실습 어려움
 - 구글, 페이스북 : 개인정보 미포함
+
+# 2025.10.24
+---
+https://docs.google.com/spreadsheets/d/1XjWUC6gTDQniAJkOz2PQ2ekryl6jWroGGYiG1KXbe-k/edit?gid=541518987#gid=541518987
