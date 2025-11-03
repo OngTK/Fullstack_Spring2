@@ -1,4 +1,4 @@
-package example2.day01_251103;
+package example2.practice.practice01_251103;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +14,6 @@ public class AppStart {
     }
     @Bean // 특정 경로 전체를 Spring Security 검사에서 제외
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/api/exam/**");
+        return (web) -> web.ignoring().requestMatchers("/api/book/**");
     }
 }

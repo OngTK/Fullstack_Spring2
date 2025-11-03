@@ -34,3 +34,17 @@
             클래스위에 `@Entity` 어노테이션 주입
             Entity 한 개에 @Id 주입 필수  => PK
         2) Entity 매핑 설정 > application.properties
+
+[ JPA Repository ]
+    정의 : CRUD 작업을 제공하는 인터페이스 + 동적쿼리 제공
+    사용법
+        1) 도메인Repository 인터페이스 생성
+        2) `@Repository` 주입
+        3) extends JpaRepository<T, Id>
+            T   : 테이블 - 조작할 테이블 = Entity
+            Id  : PK의 타입 - col1 > Integer
+
+
+주의 : controller 에서는 Entity를 불러서 사용하지 않는다.
+Controller - DTO
+Service - Entity
