@@ -73,6 +73,9 @@ dependencies {
     // Oauth2 관련
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+    // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 }
 
 tasks.named('test') {
