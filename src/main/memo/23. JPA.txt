@@ -22,6 +22,7 @@
     Java의 영속성·지속성 API
     정의 : Java의 ORM을 사용할 때 표준 API
     설치 : gradle ` implementation 'org.springframework.boot:spring-boot-starter-data-jpa' `
+    기능 : 영속된 관계에서 자바 객체가 변화되면 DB도 같이 변경
 
 [ Entity ]
     1. 정의
@@ -34,6 +35,28 @@
             클래스위에 `@Entity` 어노테이션 주입
             Entity 한 개에 @Id 주입 필수  => PK
         2) Entity 매핑 설정 > application.properties
+            2-1) JPA DDL 설정
+                아래 3개 중 1개만 사용해야 함
+                ```properties
+                    # Entity 테이블 CUD
+                    # [8.1] Entity 테이블 삭제 후 생성
+                    # spring.jpa.hibernate.ddl-auto=create
+                    # [8.2] Entity 테이블이 존재하면 수정 / 존재하지 않으면 생성
+                    spring.jpa.hibernate.ddl-auto=update
+                    # [8.3] Entity 테이블을 직접관리하기 위해, CRUD 기능을 부여하지 않음
+                    # spring.jpa.hibernate.ddl-auto=none
+                ```
+            2-2) 추가 옵션
+                ```properties
+                    # [8.4] JPA가 처리한 SQL 문을 console에 출력
+                    spring.jpa.show-sql=true
+                    # [8.5] console에 출력된 SQL을 줄바꿈 처리하여 가독성을 높임
+                    spring.jpa.properties.hibernate.format_sql=true
+                    # [8.6] JPA가 처리한 SQL의 매개변수를 console에 출력
+                    logging.level.org.hibernate.sql = DEBUG
+                    logging.level.org.hibernate.orm.jdbc.bind=TRACE
+
+                ```
 
 [ JPA Repository ]
     정의 : CRUD 작업을 제공하는 인터페이스 + 동적쿼리 제공
@@ -48,3 +71,34 @@
 주의 : controller 에서는 Entity를 불러서 사용하지 않는다.
 Controller - DTO
 Service - Entity
+
+
+[ JPA 기본 함수 ]
+    .save(T)
+        - 저장할 엔티티가 존재하지 않으면 INSERT, 존재하면 UPDATE
+        - 영속성의 특징으로 별도의 update func이 존재하지 않음
+    .findAll()
+        - 모든 엔티티를 조회
+    .findById(Id)
+        - Id에 해당하는 엔티티를 조회
+    .deleteById(Id)
+        - Id에 해당하는 엔티티를 삭제
+
+    T1.set@@(T2.get@@( ) )
+        - Setter를 이용하여 수정할 경우, 영속성에 의해 자동으로 Update 됨
+        - 단, @Transactional 필수!!
+
+    ※ 영속성을 갖는 시점
+        .save() / .find() / .delete() 등 메소드가 실행되어 엔티티가 DB와 연결된 시점
+        - 관례적으로 엔티티는 MVC 패턴 중 Service에서만 사용
+        - service 외에서는 DTO/VO 활용
+
+    ※ Optional< T >
+        - NullPointException 관련 메소드 기능을 제공하는 클래스
+        .isPresent()
+            - 엔티티가 존재하는지를 확인
+            - True : 존재 / False : Null
+        .get()
+            - T를 반환
+        .orElse( null일 때 값 )
+        .orElseThrow( 예외객체 )
