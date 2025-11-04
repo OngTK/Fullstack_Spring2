@@ -1,4 +1,4 @@
-package example2.day02_251104;
+package example2.practice.practice02_251104;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,18 +8,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 
 @SpringBootApplication
-@EnableWebSecurity  // 시큐리티 설정 어노테이션
+@EnableWebSecurity // 시큐리티 설정 어노테이션
 @EnableJpaAuditing  // BaseTime 실행을 위해서는 해당 어노테이션 주입 필요
-//JPA가 DB를 Auditing하여, 엔티티의 변화가 생기면 BaseTime을 주입
 public class AppStart {
-
     public static void main(String[] args) {
         SpringApplication.run(AppStart.class, args);
     }
-
     @Bean // 특정 경로 전체를 Spring Security 검사에서 제외
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/api/goods/**");
+        return (web) -> web.ignoring().requestMatchers("/api/movie/**");
     }
-
-} // class end
+}
