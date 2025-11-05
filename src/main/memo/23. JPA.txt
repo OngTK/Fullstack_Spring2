@@ -57,6 +57,20 @@
                     logging.level.org.hibernate.orm.jdbc.bind=TRACE
 
                 ```
+        3) 주요 어노테이스녀
+            @Entity         : 해당 클래스를 데이터베이스 테이블과 매핑
+            @Id             : 해당 클래스/테이블의 PK를 주입
+            @Table(name=::) : 테이블명 설정
+            @GeneratedValued( strategy = GenerationType.IDENTITY )
+                            : PK에 auto_increment 지원 (MySQL 에서만 가능)
+            @Column         : 테이블 속성(열/컬럼) 정의
+                ( nullable = true/false )       : not null 제약조건
+                ( unique = true/false )         : unique 제약조건
+                ( name = "필드명" )              : 필드명 설정
+                ( length = 길이 )                : 길이가 존재하는 필드의 길이 정의
+                ( insertable = true/false )     : insert할 대 적용할 필드 설정
+                ( updatable = true/false )      : update할 때 적용할 필드 설정
+
 
 [ JPA Repository ]
     정의 : CRUD 작업을 제공하는 인터페이스 + 동적쿼리 제공
@@ -102,3 +116,40 @@ Service - Entity
             - T를 반환
         .orElse( null일 때 값 )
         .orElseThrow( 예외객체 )
+
+[ JPA Auditing ]
+    - 정의
+        : 엔티티의 생성/수정 변화를 기록하는 것을 자동으로 감시하는 기능
+    - 목적
+        : SQL INSERT/UPDATE를 감시하여 기록
+    - 사용처
+        : BaseTime 상속 클래스
+    - 사용법
+        1) AppStart 클래스 위에 @EnableJpaAuditing 주입
+        2) BaseTime 클래스 생성
+            ```java
+                @Getter
+                @MappedSuperclass
+                @EntityListeners(AuditingEntityListener.class)
+                public class BaseTime {
+
+                    @CreatedDate
+                    private LocalDateTime createdAt;    // 등록일
+
+                    @LastModifiedDate
+                    private LocalDateTime updatedAt;    // 수정일
+
+                } // class end
+            ```
+        3) BaseTime을 사용할 엔티티 클래스에 BaseTime을 상속
+
+[ JPA Entity 와 MVC DTO/VO 관계·변환 ]
+    - Spring Web은 MVC2 3Tire 패턴을 사용
+    - Entity 클래스는 toDto 메소드로 entity > Dto 변환 기능을 제공
+    - DTO 클래스는 toEntity 메소드로 Dto > entity 변환 기능을 제공
+
+        `View`         <-- JSON/DTO --> `Controller`        <-- DTO --> `Service`   <-- Entity --> Repository/DAO/Mapper
+        HTML/JS                         @RestController                 @Service
+        JPS/JS
+        REACT                           --> DTO/MAP 사용권장             --> 비즈니스 로직
+        + 타임리프/머스테치                                               --> DTO <-> Entity 변환
