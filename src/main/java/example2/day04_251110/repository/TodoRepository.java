@@ -27,7 +27,7 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Integer> {
     // == `select * from todo where title='매개변수' and content='매개변수' `
 
     // [2.3] findBy필드명Containing
-    List<TodoEntity> findByTitleContaining(String title);
+    List<TodoEntity> findByTitleContaining(String keyword);
     // == `select * from todo where title like "%매개변수%"`
 
 
@@ -44,5 +44,9 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Integer> {
     // [3.2]
     @Query(value = "select * from todo where title = :title and content = :content",nativeQuery = true)
     List<TodoEntity> query2(String title, String content);
+
+    // [3.3]
+    @Query(value = "select * from todo where title like %:keyword% ",nativeQuery = true)
+    List<TodoEntity> query3(String keyword);
 
 } // class end

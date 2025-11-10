@@ -18,9 +18,9 @@ public class BaseTime {
     // LocaDateTime -> sql : datetime(6)
 
     @CreatedDate                      // 현재 시간을 생성일자로 함
-    private LocalDateTime createDate; // 생성 날짜·시간
+    private LocalDateTime createdAt; // 생성 날짜·시간
 
     @LastModifiedDate                 // 엔티티의 변화 시검의 날짜, 시간을 자동으로 주입
-    private LocalDateTime updateDate; // 수정 날짜·시간
+    private LocalDateTime updatedAt; // 수정 날짜·시간
 
 } // class end

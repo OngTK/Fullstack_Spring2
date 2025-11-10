@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TodoEntity extends BaseTime{
+public class TodoEntity extends BaseTime {
 
     // [1] 설계 ====================================================
     @Id
@@ -36,8 +36,8 @@ public class TodoEntity extends BaseTime{
                 .title(this.title)
                 .content(this.content)
                 .done(this.done)
-                .createdAt(String.valueOf(this.getCreateDate()))
-                .updatedAt(String.valueOf(this.getUpdateDate()))
+                .createdAt(String.valueOf(this.getCreatedAt()))
+                .updatedAt(String.valueOf(this.getUpdatedAt()))
                 .build();
     } // func end
 } // class end
