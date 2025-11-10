@@ -6,11 +6,10 @@ import example2.day04_251110.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.List;
 
@@ -67,11 +66,15 @@ public class TodoService {
     public Page<TodoDto> page(int page, int size){
 
         // [4.1] 페이징 처리 옵션 설정
-        PageRequest.of(page, size);
+        // PageRequest.of(조회할 페이지 번호, 페이지 크기, Sort.by(Sort.Direction.DESC, "정렬 속성명"));
+        PageRequest pageRequest = PageRequest.of(page-1, size, Sort.by(Sort.Direction.DESC, "id"));
 
         // [4.2] 조회
+        Page<TodoEntity> result = todoRepository.findAll(pageRequest);
 
         // [4.3] 결과 반환
+        // Page<>는 기본적으로 stream을 제공
+        return result.map(TodoEntity :: toDto);
 
     } // func end
 
