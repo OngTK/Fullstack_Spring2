@@ -23,7 +23,7 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Integer> {
     // == `select * from todo where title='매개변수' `
 
     // [2.2] findBy필드명And필드명(String 매개변수1, String 매개변수2);
-    List<TodoEntity> fintByTitleAndContent(String title, String content);
+    List<TodoEntity> findByTitleAndContent(String title, String content);
     // == `select * from todo where title='매개변수' and content='매개변수' `
 
     // [2.3] findBy필드명Containing
