@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -108,5 +110,14 @@ public class TodoService {
             return true;
         }
         return false;
+    } // func end
+
+    // [3] 개별 조회
+    public TodoDto findById(int id) {
+        Optional<TodoEntity> optional = todoRepository.findById(id);
+        if(optional.isPresent()){
+            return optional.get().toDto();
+        }
+        return null;
     } // func end
 } // class end
