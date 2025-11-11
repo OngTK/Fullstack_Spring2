@@ -120,4 +120,20 @@ public class TodoService {
         }
         return null;
     } // func end
+
+    // [4] 개별 수정
+    public TodoDto update(TodoDto todoDto){
+        Optional<TodoEntity> optional = todoRepository.findById(todoDto.getId());
+        if(optional.isPresent()){
+            TodoEntity entity = optional.get();
+
+            entity.setTitle(todoDto.getTitle());
+            entity.setContent(todoDto.getContent());
+            entity.setDone(todoDto.isDone());
+
+            return entity.toDto();
+        }
+        return null;
+    }
+
 } // class end
