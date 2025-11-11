@@ -3,14 +3,12 @@ package example2.day04_251110.controller;
 import example2.day04_251110.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/todo")
+@CrossOrigin( value = "*" )
 public class TodoController {
 
     private final TodoService todoService;
@@ -41,4 +39,31 @@ public class TodoController {
     ) {
         return ResponseEntity.ok(todoService.page(page, size));
     } // func end
+
+    // [5] 제목 포함 + 페이지 처리
+    @GetMapping("/page2")
+    public ResponseEntity<?> page2(
+            String keyword,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "3") int size
+    ){
+        return ResponseEntity.ok(todoService.page2(keyword,page,size));
+    } // func end
+
+    // 2025.11.11 Flutter 통신 메소드 추가 ============================================================
+
+    // [1] 전체조회
+    @GetMapping
+    public ResponseEntity<?> findAll(){
+        return ResponseEntity.ok(todoService.findAll());
+    } // func end
+
+    // [2] 개별삭제
+    @DeleteMapping
+    public ResponseEntity<?> delete(int id){
+        return ResponseEntity.ok(todoService.delete(id));
+    } // func end
+
+
+
 } // class end
